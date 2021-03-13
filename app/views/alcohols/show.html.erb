@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Alcohol #<%= @the_alcohol.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/alcohols">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_alcohol/<%= @the_alcohol.id %>">
+          Delete alcohol
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Name
+      </dt>
+      <dd>
+        <%= @the_alcohol.name %>
+      </dd>
+
+      <dt>
+        Description
+      </dt>
+      <dd>
+        <%= @the_alcohol.description %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_alcohol.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_alcohol.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit alcohol
+    </h2>
+
+    <form action="/modify_alcohol/<%= @the_alcohol.id %>"  method="post" >
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name" value="<%= @the_alcohol.name %>">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <textarea id="description_box" name="query_description"><%= @the_alcohol.description %></textarea>
+      </div>
+
+      <button>
+        Update alcohol
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
