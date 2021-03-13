@@ -9,4 +9,15 @@
 #  user_id    :integer
 #
 class SavedRecipe < ApplicationRecord
+  # Direct Associations
+  belongs_to(:user, { :required => true })
+  belongs_to(:recipe, { :required => true })
+
+  # Indirect Associations
+
+  
+  # Validations
+
+
+  # Additional Methods
 end

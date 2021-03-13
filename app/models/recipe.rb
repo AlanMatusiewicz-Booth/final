@@ -11,4 +11,19 @@
 #  user_id     :integer
 #
 class Recipe < ApplicationRecord
+  # Direct Associations
+  belongs_to(:user, { :required => true })
+  has_many(:ingredients, { :dependent => :destroy })
+  has_many(:saved_recipes, { :dependent => :destroy })
+  has_many(:na_ingredients, { :dependent => :destroy })
+
+  # Indirect Associations
+  has_many(:users, { :through => :saved_recipes, :source => :user })
+  has_many(:alcohols, { :through => :ingredients, :source => :alcohol })
+
+  # Validations
+  validates(:name, { :presence => true })
+  validates(:iba_status, { :inclusion => {:in => [true, false]}, :default => false })
+
+  # Additional Methods
 end

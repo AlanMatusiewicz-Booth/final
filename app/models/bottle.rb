@@ -9,4 +9,15 @@
 #  user_id    :integer
 #
 class Bottle < ApplicationRecord
+  # Direct Associations
+  belongs_to(:user, { :required => true })
+  belongs_to(:alcohol, { :required => true })
+  
+  # Indirect Associations
+
+
+  # Validations
+
+
+  # Additional Methods
 end
