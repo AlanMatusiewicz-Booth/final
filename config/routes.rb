@@ -2,6 +2,25 @@ Rails.application.routes.draw do
 
 
 
+  # Routes for the Na ingredient resource:
+
+  # CREATE
+  post("/insert_na_ingredient", { :controller => "na_ingredients", :action => "create" })
+          
+  # READ
+  get("/na_ingredients", { :controller => "na_ingredients", :action => "index" })
+  
+  get("/na_ingredients/:path_id", { :controller => "na_ingredients", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_na_ingredient/:path_id", { :controller => "na_ingredients", :action => "update" })
+  
+  # DELETE
+  get("/delete_na_ingredient/:path_id", { :controller => "na_ingredients", :action => "destroy" })
+
+  #------------------------------
+
   # Routes for the Alcohol resource:
 
   # CREATE

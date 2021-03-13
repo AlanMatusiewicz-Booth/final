@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Na ingredient #<%= @the_na_ingredient.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/na_ingredients">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_na_ingredient/<%= @the_na_ingredient.id %>">
+          Delete na ingredient
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Recipe
+      </dt>
+      <dd>
+        <%= @the_na_ingredient.recipe_id %>
+      </dd>
+
+      <dt>
+        Name
+      </dt>
+      <dd>
+        <%= @the_na_ingredient.name %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_na_ingredient.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_na_ingredient.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit na ingredient
+    </h2>
+
+    <form action="/modify_na_ingredient/<%= @the_na_ingredient.id %>"  method="post" >
+      <div>
+        <label for="recipe_id_box">
+          Recipe
+        </label>
+
+        <input type="text" id="recipe_id_box" name="query_recipe_id" value="<%= @the_na_ingredient.recipe_id %>">
+      </div>
+
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name" value="<%= @the_na_ingredient.name %>">
+      </div>
+
+      <button>
+        Update na ingredient
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
