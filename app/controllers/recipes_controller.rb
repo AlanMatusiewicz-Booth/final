@@ -20,7 +20,7 @@ class RecipesController < ApplicationController
   def create
     the_recipe = Recipe.new
     the_recipe.name = params.fetch("query_name")
-    the_recipe.user_id = params.fetch("query_user_id")
+    the_recipe.user_id = @current_user.id
     the_recipe.preparation = params.fetch("query_preparation")
     the_recipe.iba_status = params.fetch("query_iba_status", false)
 
@@ -57,16 +57,4 @@ class RecipesController < ApplicationController
 
     redirect_to("/recipes", { :notice => "Recipe deleted successfully."} )
   end
-
-  def random
-    the_id = Recipe.all.sample.id
-
-    matching_recipes = Recipe.where({ :id => the_id })
-
-    @the_recipe = matching_recipes.at(0)
-
-    redirect_to("/recipes/#{the_id}")
-    # render({ :template => "recipes/show.html.erb" })
-  end
-  
 end

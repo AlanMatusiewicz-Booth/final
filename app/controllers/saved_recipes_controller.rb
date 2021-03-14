@@ -19,7 +19,7 @@ class SavedRecipesController < ApplicationController
 
   def create
     the_saved_recipe = SavedRecipe.new
-    the_saved_recipe.user_id = params.fetch("query_user_id")
+    the_saved_recipe.user_id = @current_user.id
     the_saved_recipe.recipe_id = params.fetch("query_recipe_id")
 
     if the_saved_recipe.valid?
@@ -34,7 +34,7 @@ class SavedRecipesController < ApplicationController
     the_id = params.fetch("path_id")
     the_saved_recipe = SavedRecipe.where({ :id => the_id }).at(0)
 
-    the_saved_recipe.user_id = params.fetch("query_user_id")
+    the_saved_recipe.user_id = @current_user.id
     the_saved_recipe.recipe_id = params.fetch("query_recipe_id")
 
     if the_saved_recipe.valid?

@@ -20,7 +20,8 @@ class Ingredient < ApplicationRecord
 
 
   # Validations
-  # validates(:unit, { :default => "oz" })
+  validates(:unit, { :presence => true })
+  validates(:unit, { :inclusion => { :in => ["oz"], :default => "oz"} })
   validates(:measure, { :numericality => { :greater_than => 0 } })
   validates(:measure, { :presence => true })
   validates(:measure_ml, { :numericality => { :greater_than => 0 } })
@@ -28,4 +29,9 @@ class Ingredient < ApplicationRecord
   validates(:alcohol_id, { :uniqueness => { :scope => ["recipe_id"], :message => "has already been added to recipe" } })
 
   # Additional Methods
+  def Ingredient.summary
+    long_name = Ingredient.measure + " " + Ingredient.unit + " " + Ingredient.alcohol.name
+    
+    return long_name
+  end
 end

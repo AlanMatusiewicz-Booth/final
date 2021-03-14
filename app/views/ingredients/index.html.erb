@@ -47,6 +47,14 @@
         <input type="text" id="measure_box" name="query_measure">
       </div>
 
+      <div>
+        <label for="unit_box">
+          Unit
+        </label>
+
+        <input type="text" id="unit_box" name="query_unit">
+      </div>
+
       <button>
         Create ingredient
       </button>
@@ -77,6 +85,10 @@
 
         <th>
           Measure
+        </th>
+
+        <th>
+          Unit
         </th>
 
         <th>
@@ -111,6 +123,10 @@
 
         <td>
           <%= an_ingredient.measure %>
+        </td>
+
+        <td>
+          <%= an_ingredient.unit %>
         </td>
 
         <td>

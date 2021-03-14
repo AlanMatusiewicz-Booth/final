@@ -21,6 +21,8 @@ class NaIngredientsController < ApplicationController
     the_na_ingredient = NaIngredient.new
     the_na_ingredient.recipe_id = params.fetch("query_recipe_id")
     the_na_ingredient.name = params.fetch("query_name")
+    the_na_ingredient.measure = params.fetch("query_measure")
+    the_na_ingredient.unit = params.fetch("query_unit")
 
     if the_na_ingredient.valid?
       the_na_ingredient.save
@@ -36,6 +38,8 @@ class NaIngredientsController < ApplicationController
 
     the_na_ingredient.recipe_id = params.fetch("query_recipe_id")
     the_na_ingredient.name = params.fetch("query_name")
+    the_na_ingredient.measure = params.fetch("query_measure")
+    the_na_ingredient.unit = params.fetch("query_unit")
 
     if the_na_ingredient.valid?
       the_na_ingredient.save

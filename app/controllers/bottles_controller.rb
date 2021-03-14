@@ -19,7 +19,7 @@ class BottlesController < ApplicationController
 
   def create
     the_bottle = Bottle.new
-    the_bottle.user_id = params.fetch("query_user_id")
+    the_bottle.user_id = @current_user.id
     the_bottle.alcohol_id = params.fetch("query_alcohol_id")
 
     if the_bottle.valid?
@@ -34,7 +34,7 @@ class BottlesController < ApplicationController
     the_id = params.fetch("path_id")
     the_bottle = Bottle.where({ :id => the_id }).at(0)
 
-    the_bottle.user_id = params.fetch("query_user_id")
+    the_bottle.user_id = @current_user.id
     the_bottle.alcohol_id = params.fetch("query_alcohol_id")
 
     if the_bottle.valid?

@@ -23,6 +23,7 @@ class IngredientsController < ApplicationController
     the_ingredient.alcohol_id = params.fetch("query_alcohol_id")
     the_ingredient.measure_ml = params.fetch("query_measure_ml")
     the_ingredient.measure = params.fetch("query_measure")
+    the_ingredient.unit = params.fetch("query_unit")
 
     if the_ingredient.valid?
       the_ingredient.save
@@ -40,6 +41,7 @@ class IngredientsController < ApplicationController
     the_ingredient.alcohol_id = params.fetch("query_alcohol_id")
     the_ingredient.measure_ml = params.fetch("query_measure_ml")
     the_ingredient.measure = params.fetch("query_measure")
+    the_ingredient.unit = params.fetch("query_unit")
 
     if the_ingredient.valid?
       the_ingredient.save

@@ -34,6 +34,20 @@
       </dd>
 
       <dt>
+        Measure
+      </dt>
+      <dd>
+        <%= @the_na_ingredient.measure %>
+      </dd>
+
+      <dt>
+        Unit
+      </dt>
+      <dd>
+        <%= @the_na_ingredient.unit %>
+      </dd>
+
+      <dt>
         Created at
       </dt>
       <dd>
@@ -74,6 +88,22 @@
         </label>
 
         <input type="text" id="name_box" name="query_name" value="<%= @the_na_ingredient.name %>">
+      </div>
+
+      <div>
+        <label for="measure_box">
+          Measure
+        </label>
+
+        <input type="text" id="measure_box" name="query_measure" value="<%= @the_na_ingredient.measure %>">
+      </div>
+
+      <div>
+        <label for="unit_box">
+          Unit
+        </label>
+
+        <input type="text" id="unit_box" name="query_unit" value="<%= @the_na_ingredient.unit %>">
       </div>
 
       <button>

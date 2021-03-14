@@ -23,7 +23,7 @@ class Recipe < ApplicationRecord
 
   # Validations
   validates(:name, { :presence => true })
-  validates(:iba_status, { :inclusion => {:in => [true, false]}, :default => false })
+  validates(:iba_status, { :inclusion => {:in => [true, false], :default => false } })
 
   # Additional Methods
   def Recipe.all_ingredients

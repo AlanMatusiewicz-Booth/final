@@ -31,6 +31,22 @@
         <input type="text" id="name_box" name="query_name">
       </div>
 
+      <div>
+        <label for="measure_box">
+          Measure
+        </label>
+
+        <input type="text" id="measure_box" name="query_measure">
+      </div>
+
+      <div>
+        <label for="unit_box">
+          Unit
+        </label>
+
+        <input type="text" id="unit_box" name="query_unit">
+      </div>
+
       <button>
         Create na ingredient
       </button>
@@ -53,6 +69,14 @@
 
         <th>
           Name
+        </th>
+
+        <th>
+          Measure
+        </th>
+
+        <th>
+          Unit
         </th>
 
         <th>
@@ -79,6 +103,14 @@
 
         <td>
           <%= a_na_ingredient.name %>
+        </td>
+
+        <td>
+          <%= a_na_ingredient.measure %>
+        </td>
+
+        <td>
+          <%= a_na_ingredient.unit %>
         </td>
 
         <td>
