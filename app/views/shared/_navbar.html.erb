@@ -5,39 +5,36 @@
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
+                <a class="nav-link" href="/recipes">Explore Recipes</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/random">Random Recipe</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Search</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/recipes">Browse</a>
-            </li>
             <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Resources
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a href="/na_ingredients" class="dropdown-item">
-              Na Ingredients
-            </a>
-            <a href="/alcohols" class="dropdown-item">
-              Alcohols
-            </a>
-            <a href="/ingredients" class="dropdown-item">
-              Ingredients
-            </a>
-            <a href="/bottles" class="dropdown-item">
-              Bottles
-            </a>
-            <a href="/saved_recipes" class="dropdown-item">
-              Saved Recipes
-            </a>
-            <a href="/recipes" class="dropdown-item">
-              Recipes
-            </a>
-          </div>
-        </li>
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Resources
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a href="/na_ingredients" class="dropdown-item">
+                  Na Ingredients
+                </a>
+                <a href="/alcohols" class="dropdown-item">
+                  Alcohols
+                </a>
+                <a href="/ingredients" class="dropdown-item">
+                  Ingredients
+                </a>
+                <a href="/bottles" class="dropdown-item">
+                  Bottles
+                </a>
+                <a href="/saved_recipes" class="dropdown-item">
+                  Saved Recipes
+                </a>
+                <a href="/recipes" class="dropdown-item">
+                  Recipes
+                </a>
+              </div>
+            </li>
         </ul>
     </div>
 
@@ -50,19 +47,29 @@
 
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">My Bar</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">My Recipes</a>
-            </li>
             <% if @current_user.nil? %>
               <li class="nav-item">
                 <a class="nav-link" href="/user_sign_in">Sign In</a>
-              </li>
+              </li>            
             <% else %>
               <li class="nav-item">
-                <a class="nav-link" href="/user_sign_out">Sign Out</a>
+                  <a class="nav-link" href="#">My Bar</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/saved_recipes">My Recipes</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarAccountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                My Account
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarAccountDropdown">
+                  <a href="/edit_user_profile" class="dropdown-item">
+                  Edit Profile
+                  </a>
+                  <a href="/user_sign_out" class="dropdown-item">
+                  Sign Out
+                  </a>
+                </div>
               </li>
             <% end %>
         </ul>
