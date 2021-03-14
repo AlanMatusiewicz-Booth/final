@@ -29,8 +29,8 @@ class Ingredient < ApplicationRecord
   validates(:alcohol_id, { :uniqueness => { :scope => ["recipe_id"], :message => "has already been added to recipe" } })
 
   # Additional Methods
-  def Ingredient.summary
-    long_name = Ingredient.measure + " " + Ingredient.unit + " " + Ingredient.alcohol.name
+  def summary
+    long_name = self.measure.to_s + " " + self.unit + " " + self.alcohol.name
     
     return long_name
   end

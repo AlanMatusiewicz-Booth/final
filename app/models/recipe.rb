@@ -26,15 +26,15 @@ class Recipe < ApplicationRecord
   validates(:iba_status, { :inclusion => {:in => [true, false], :default => false } })
 
   # Additional Methods
-  def Recipe.all_ingredients
-    full_list = Array.new
-      Recipe.ingredients.order({ :measure_ml => :desc }).each do |a_ingredient|
-        full_list.push(a_ingredient)
+  def ingredient_list
+    list = Array.new
+      self.ingredients.order({ :measure_ml => :desc }).each do |a_ingredient|
+        list.push(a_ingredient.alcohol.name)
       end
-      Recipe.na_ingredients.order({ :name => :desc }).each do |a_na_ingredient|
-        full_list.push(a_na_ingredient)
+      self.na_ingredients.order({ :name => :asc }).each do |a_na_ingredient|
+        list.push(a_na_ingredient.name)
       end
     
-    return full_list    
+    return list    
   end
 end

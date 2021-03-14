@@ -22,15 +22,17 @@ class NaIngredient < ApplicationRecord
   validates(:name, { :uniqueness => { :scope => ["recipe_id"], :message => "has already been added to recipe" } })
 
   # Additional Methods
-  def NaIngredient.summary
-    if NaIngredient.measure == nil && NaIngredient.unit == nil
-      long_name = NaIngredient.name
-    elsif NaIngredient.measure == nil
-      long_name = NaIngredient.unit + " " + NaIngredient.name
-    elsif NaIngredient.unit == nil
-      long_name = NaIngredient.measure + " " + NaIngredient.name
+
+  def summary
+    if self.measure == "" || self.measure == nil
+      if self.unit == "" || self.unit == nil
+        long_name = self.name
+      else long_name = self.unit + " " + self.name
+      end
+    elsif self.unit == "" || self.unit == nil
+      long_name = self.measure + " " + self.name
     else
-      long_name = NaIngredient.measure + " " + NaIngredient.unit + " " + NaIngredient.name
+      long_name = self.measure + " " + self.unit + " " + self.name
     end
 
     return long_name

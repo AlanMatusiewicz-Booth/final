@@ -160,7 +160,7 @@ task({ :sample_data => :environment}) do
   if ActiveRecord::Base.connection.table_exists?("ingredients")
     Ingredient.delete_all
     ingredients = [
-      {id: 1, recipe_id: 1, alcohol_id: 26, measure: 2.03, measure_ml: 60, unit: "oz", created_at: "2021-03-13 18:30:00", updated_at: "2021-03-13 18:40:01"},
+      {id: 1, recipe_id: 1, alcohol_id: 26, measure: 2.03, measure_ml: 60, unit: "oz", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
       {id: 2, recipe_id: 1, alcohol_id: 33, measure: 0.51, measure_ml: 15, unit: "oz", created_at: "2021-03-13 18:30:00", updated_at: "2021-03-13 18:40:01"},
       {id: 3, recipe_id: 1, alcohol_id: 6, measure: 0.25, measure_ml: 7.5, unit: "oz", created_at: "2021-03-13 18:30:00", updated_at: "2021-03-13 18:40:01"},
       {id: 4, recipe_id: 2, alcohol_id: 35, measure: 1.52, measure_ml: 45, unit: "oz", created_at: "2021-03-13 18:30:00", updated_at: "2021-03-13 18:40:01"},
