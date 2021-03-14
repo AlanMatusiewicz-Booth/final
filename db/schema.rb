@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_03_14_161808) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "unit"
-    t.float "measure"
+    t.string "measure"
   end
 
   create_table "recipes", force: :cascade do |t|

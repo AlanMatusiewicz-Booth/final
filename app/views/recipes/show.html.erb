@@ -32,9 +32,18 @@
       <dt>
         Ingredients
       </dt>
-      <% @the_recipe.all_ingredients.each do |a_ingredient| %>
+
+      <% @the_recipe.ingredients.order({ :measure_ml => :desc }).each do |a_ingredient| %>
         <dd>
-          
+          <%= a_ingredient.measure %> oz <%= a_ingredient.alcohol.name %>
+        </dd>
+      <% end %>
+
+      <% @the_recipe.na_ingredients.order({ :name => :desc }).each do |a_na_ingredient| %>
+        <dd>
+          <%= a_na_ingredient.name %>
+        </dd>
+      <% end %>          
 
 
       <dt>

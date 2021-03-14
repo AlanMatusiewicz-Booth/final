@@ -20,6 +20,7 @@ class Ingredient < ApplicationRecord
 
 
   # Validations
+  # validates(:unit, { :default => "oz" })
   validates(:measure, { :numericality => { :greater_than => 0 } })
   validates(:measure, { :presence => true })
   validates(:measure_ml, { :numericality => { :greater_than => 0 } })
