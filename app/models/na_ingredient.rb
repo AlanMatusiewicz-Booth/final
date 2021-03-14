@@ -3,7 +3,9 @@
 # Table name: na_ingredients
 #
 #  id         :integer          not null, primary key
+#  measure    :float
 #  name       :string
+#  unit       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  recipe_id  :integer

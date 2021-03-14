@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_201354) do
+ActiveRecord::Schema.define(version: 2021_03_14_161808) do
 
   create_table "alcohols", force: :cascade do |t|
     t.string "name"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_201354) do
     t.float "measure"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "unit"
   end
 
   create_table "na_ingredients", force: :cascade do |t|
@@ -40,6 +41,8 @@ ActiveRecord::Schema.define(version: 2021_03_13_201354) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "unit"
+    t.float "measure"
   end
 
   create_table "recipes", force: :cascade do |t|
