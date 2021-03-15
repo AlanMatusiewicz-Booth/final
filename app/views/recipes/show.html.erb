@@ -63,42 +63,42 @@
     <hr>
 
     <div class="container d-flex col-6 justify-content-center">
-    <dl>
+      <dl>
 
-      <dt>
-        Ingredients
-      </dt>
+        <dt>
+          Ingredients
+        </dt>
 
-      <dd>
-        <ul>
-          <% @the_recipe.ingredients.order({ :measure_ml => :desc }).each do |a_ingredient| %>
-            <li>
-              <%= a_ingredient.summary %>
-            </li>
-          <% end %>
+        <dd>
+          <ul>
+            <% @the_recipe.ingredients.order({ :measure_ml => :desc }).each do |a_ingredient| %>
+              <li>
+                <%= a_ingredient.summary %>
+              </li>
+            <% end %>
 
-          <% @the_recipe.na_ingredients.order({ :name => :desc }).each do |a_na_ingredient| %>
-            <li>
-              <%= a_na_ingredient.summary %>
-            </li>
-          <% end %>
-        </ul>
-      </dd>
+            <% @the_recipe.na_ingredients.order({ :name => :desc }).each do |a_na_ingredient| %>
+              <li>
+                <%= a_na_ingredient.summary %>
+              </li>
+            <% end %>
+          </ul>
+        </dd>
 
-      <dt>
-        Preparation
-      </dt>
-      <dd>
-        <%= @the_recipe.preparation %>
-      </dd>
+        <dt>
+          Preparation
+        </dt>
+        <dd>
+          <%= @the_recipe.preparation %>
+        </dd>
 
-      <dt>
-      </dt>
-      <br>
-      <dd>
-        Updated <%= time_ago_in_words(@the_recipe.updated_at) %> ago
-      </dd>
-    </dl>
+        <dt>
+        </dt>
+        <br>
+        <dd>
+          Updated <%= time_ago_in_words(@the_recipe.updated_at) %> ago
+        </dd>
+      </dl>
     </div>
   </div>
 </div>

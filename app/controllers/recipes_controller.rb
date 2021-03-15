@@ -74,7 +74,8 @@ class RecipesController < ApplicationController
     the_id = Recipe.all.sample.id
 
     # Plan is for this notice to show only if user doesn't have all ingredients and specify what they need.
-    redirect_to("/recipes/#{the_id}", { :notice => "Your bar may not have the ingredients needed for this random cocktail recipe." })
+    # redirect_to("/recipes/#{the_id}", { :notice => "Your bar may not have the ingredients needed for this random cocktail recipe." })
+    redirect_to("/recipes/#{the_id}")
   end
 
 end
