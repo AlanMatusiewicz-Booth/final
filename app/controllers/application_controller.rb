@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
   before_action(:force_user_sign_in)
   skip_before_action(:force_user_sign_in, { :only => [:homepage] })
   
+  before_action(:get_path)
+  
+  def get_path
+    @path = request.fullpath
+  end
+
   def load_current_user
     the_id = session[:user_id]
     @current_user = User.where({ :id => the_id }).first

@@ -4,29 +4,22 @@
       Cocktail Recipes
     </h1>
   </div>
-</div>
 
-<hr>
+  <hr>
 
-<div>
   <div>
     <h4 class="text-center">
       Create a new recipe
     </h4>
 
-    <form action="/create_recipe_form" method="post">
-      <div>
-        <label for="name_box">
-          Name
-        </label>
-
-        <input type="text" id="name_box" name="query_name" placeholder="ie: Singapore Sling">
-      
-        <button class="btn btn-outline-secondary btn-sm">
-          Create recipe
-        </button>
+    <form action="/insert_recipe" method="post">
+      <div class="input-group mb-3 col-12">
+        <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
+        <input type="text" id="name_box" name="query_name" class="form-control col-9" placeholder="Cocktail name, ie: Singapore Sling . . ." aria-label="Cocktail name, ie: Singapore Sling . . ." aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary col-3">Create Recipe</button>
       </div>
     </form>
+
   </div>
 </div>
 
@@ -79,13 +72,16 @@
               <div class="mb-3">
                 <% if saved_recipe != nil %>
                   <form action="/delete_saved_recipe/<%= a_recipe.id %>">
-                    <button class="btn btn-danger btn-sm">
+                    <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
+                    <input type="hidden" name="query_saved_recipe_id" value="<%= saved_recipe.id %>">
+                    <button class="btn btn-outline-danger btn-sm">
                       Remove Save
                     </button>
                   </form>
                 <% else %>
                   <form action="/insert_saved_recipe" method="post">
-                    <input name="query_recipe_id" type="hidden" value="<%= a_recipe.id %>">
+                    <input type="hidden" name="query_source_url" value="<%= @path %>">
+                    <input type="hidden" name="query_recipe_id" value="<%= a_recipe.id %>">
                     <button class="btn btn-outline-secondary btn-sm">
                       Save
                     </button>

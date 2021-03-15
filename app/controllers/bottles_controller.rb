@@ -26,7 +26,7 @@ class BottlesController < ApplicationController
       the_bottle.save
       redirect_to("/bottles", { :notice => "Bottle created successfully." })
     else
-      redirect_to("/bottles", { :notice => "Bottle failed to create successfully." })
+      redirect_to("/bottles", { :alert => "#{the_bottle.errors.full_messages.to_sentence}" })
     end
   end
 

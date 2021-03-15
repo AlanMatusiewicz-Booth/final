@@ -19,6 +19,7 @@ class Alcohol < ApplicationRecord
 
   # Validations
   validates(:name, { :presence => true })
+  validates(:name, { :uniqueness => { :message => "already exists in Alcohols list." } })
 
   # Additional Methods
 end

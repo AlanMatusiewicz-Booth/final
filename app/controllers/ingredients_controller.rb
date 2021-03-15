@@ -18,36 +18,37 @@ class IngredientsController < ApplicationController
   end
 
   def create
+    @recipe_id = params.fetch("query_recipe_id")
+    
     the_ingredient = Ingredient.new
-    the_ingredient.recipe_id = params.fetch("query_recipe_id")
+    the_ingredient.recipe_id = @recipe_id
     the_ingredient.alcohol_id = params.fetch("query_alcohol_id")
-    the_ingredient.measure_ml = params.fetch("query_measure_ml")
     the_ingredient.measure = params.fetch("query_measure")
-    the_ingredient.unit = params.fetch("query_unit")
+    the_ingredient.measure_ml = the_ingredient.measure * 29.5735
+    the_ingredient.unit = "oz"
 
     if the_ingredient.valid?
       the_ingredient.save
-      redirect_to("/ingredients", { :notice => "Ingredient created successfully." })
+      redirect_to("/modify_recipe_form/#{@recipe_id}", { :notice => "Alcoholic ingredient added successfully." })
     else
-      redirect_to("/ingredients", { :notice => "Ingredient failed to create successfully." })
+      redirect_to("/modify_recipe_form/#{@recipe_id}", { :alert => "#{the_ingredient.errors.full_messages.to_sentence}" })
     end
   end
 
   def update
-    the_id = params.fetch("path_id")
+    @recipe_id = params.fetch("query_recipe_id")
+    the_id = params.fetch("query_ingredient_id")
     the_ingredient = Ingredient.where({ :id => the_id }).at(0)
 
-    the_ingredient.recipe_id = params.fetch("query_recipe_id")
     the_ingredient.alcohol_id = params.fetch("query_alcohol_id")
-    the_ingredient.measure_ml = params.fetch("query_measure_ml")
     the_ingredient.measure = params.fetch("query_measure")
-    the_ingredient.unit = params.fetch("query_unit")
+    the_ingredient.measure_ml = the_ingredient.measure * 29.5735
 
     if the_ingredient.valid?
       the_ingredient.save
-      redirect_to("/ingredients/#{the_ingredient.id}", { :notice => "Ingredient updated successfully."} )
+      redirect_to("/modify_recipe_form/#{@recipe_id}", { :notice => "Alcoholic ingredient updated successfully."} )
     else
-      redirect_to("/ingredients/#{the_ingredient.id}", { :alert => "Ingredient failed to update successfully." })
+      redirect_to("/modify_recipe_form/#{@recipe_id}", { :alert => "#{the_ingredient.errors.full_messages.to_sentence}" })
     end
   end
 
@@ -57,6 +58,6 @@ class IngredientsController < ApplicationController
 
     the_ingredient.destroy
 
-    redirect_to("/ingredients", { :notice => "Ingredient deleted successfully."} )
+    redirect_to("/modify_recipe_form/#{@recipe_id}", { :notice => "Alcoholic ingredient deleted successfully."} )
   end
 end

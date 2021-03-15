@@ -19,14 +19,13 @@ class AlcoholsController < ApplicationController
 
   def create
     the_alcohol = Alcohol.new
-    the_alcohol.name = params.fetch("query_name")
-    the_alcohol.description = params.fetch("query_description")
+    the_alcohol.name = params.fetch("query_name").downcase
 
     if the_alcohol.valid?
       the_alcohol.save
-      redirect_to("/alcohols", { :notice => "Alcohol created successfully." })
+      redirect_to("/bar/bottles", { :notice => "Alcohol created successfully." })
     else
-      redirect_to("/alcohols", { :notice => "Alcohol failed to create successfully." })
+      redirect_to("/bar/bottles", { :alert => "#{the_alcohol.errors.full_messages.to_sentence}" })
     end
   end
 

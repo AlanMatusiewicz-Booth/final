@@ -18,34 +18,36 @@ class NaIngredientsController < ApplicationController
   end
 
   def create
+    @recipe_id = params.fetch("query_recipe_id")
+
     the_na_ingredient = NaIngredient.new
-    the_na_ingredient.recipe_id = params.fetch("query_recipe_id")
+    the_na_ingredient.recipe_id = @recipe_id
     the_na_ingredient.name = params.fetch("query_name")
     the_na_ingredient.measure = params.fetch("query_measure")
     the_na_ingredient.unit = params.fetch("query_unit")
 
     if the_na_ingredient.valid?
       the_na_ingredient.save
-      redirect_to("/na_ingredients", { :notice => "Na ingredient created successfully." })
+      redirect_to("/modify_recipe_form/#{@recipe_id}", { :notice => "Non-alcoholic ingredient added successfully." })
     else
-      redirect_to("/na_ingredients", { :notice => "Na ingredient failed to create successfully." })
+      redirect_to("/modify_recipe_form/#{@recipe_id}", { :alert => "#{the_na_ingredient.errors.full_messages.to_sentence}" })
     end
   end
 
   def update
-    the_id = params.fetch("path_id")
+    @recipe_id = params.fetch("query_recipe_id")
+    the_id = params.fetch("query_na_ingredient_id")
     the_na_ingredient = NaIngredient.where({ :id => the_id }).at(0)
 
-    the_na_ingredient.recipe_id = params.fetch("query_recipe_id")
     the_na_ingredient.name = params.fetch("query_name")
     the_na_ingredient.measure = params.fetch("query_measure")
     the_na_ingredient.unit = params.fetch("query_unit")
 
     if the_na_ingredient.valid?
       the_na_ingredient.save
-      redirect_to("/na_ingredients/#{the_na_ingredient.id}", { :notice => "Na ingredient updated successfully."} )
+      redirect_to("/modify_recipe_form/#{@recipe_id}", { :notice => "Non-alcoholic ingredient updated successfully."} )
     else
-      redirect_to("/na_ingredients/#{the_na_ingredient.id}", { :alert => "Na ingredient failed to update successfully." })
+      redirect_to("/modify_recipe_form/#{@recipe_id}", { :alert => "#{the_na_ingredient.errors.full_messages.to_sentence}" })
     end
   end
 
@@ -55,6 +57,6 @@ class NaIngredientsController < ApplicationController
 
     the_na_ingredient.destroy
 
-    redirect_to("/na_ingredients", { :notice => "Na ingredient deleted successfully."} )
+    redirect_to("/modify_recipe_form/#{@recipe_id}", { :notice => "Non-alcoholic ingredient deleted successfully."} )
   end
 end

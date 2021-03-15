@@ -21,12 +21,15 @@
     <div class="text-center mb-3">
       <% if saved_recipe != nil %>
         <form action="/delete_saved_recipe/<%= @the_recipe.id %>">
-          <button class="btn btn-danger btn-sm">
+          <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
+          <input type="hidden" name="query_saved_recipe_id" value="<%= saved_recipe.id %>">
+          <button class="btn btn-outline-danger btn-sm">
             Remove Save
           </button>
         </form>
       <% else %>
         <form action="/insert_saved_recipe" method="post">
+          <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
           <input name="query_recipe_id" type="hidden" value="<%= @the_recipe.id %>">
           <button class="btn btn-outline-secondary btn-sm">
             Save
@@ -35,11 +38,23 @@
       <% end %>
     </div>
 
+    <div class="text-center mb-3">
+      <% if @current_user.id == @the_recipe.user.id %>
+      
+          <form action="/modify_recipe_form/<%= @the_recipe.id %>">
+            <button class="btn btn-outline-secondary btn-sm">
+              Edit recipe
+            </button>
+          </form>
+          
+      <% end %>
+    </div>
+
     <div>
       <div class="text-center mb-3">
         <form action="/recipes">
-          <button type="button" class="btn btn-outline-secondary btn-sm">
-            Go back
+          <button class="btn btn-outline-secondary btn-sm">
+            Back to recipes
           </button>
         </form>
       </div>
@@ -89,61 +104,3 @@
 </div>
 
 <hr>
-
-<% if @current_user.id == @the_recipe.user.id %>
-  <div>
-    <div>
-      <h4>
-        Edit recipe
-      </h4>
-
-      <form action="/modify_recipe/<%= @the_recipe.id %>"  method="post" >
-        <div>
-          <label for="name_box">
-            Name
-          </label>
-
-          <input type="text" id="name_box" name="query_name" value="<%= @the_recipe.name %>">
-        </div>
-
-        <div>
-          <label for="user_id_box">
-            User
-          </label>
-
-          <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_recipe.user_id %>">
-        </div>
-
-        <div>
-          <label for="preparation_box">
-            Preparation
-          </label>
-
-          <textarea id="preparation_box" name="query_preparation"><%= @the_recipe.preparation %></textarea>
-        </div>
-
-        <div>
-          <input type="checkbox" id="iba_status_box" name="query_iba_status" value="1" <%= "checked" if @the_recipe.iba_status %>>
-
-          <label for="iba_status_box">
-              Iba status
-          </label>
-        </div>
-
-        <button class="btn btn-secondary">
-          Update recipe
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <hr>
-
-    <form action="/delete_recipe/<%= @the_recipe.id %>">
-      <button class="btn btn-danger btn-sm">
-        Delete recipe
-      </button>
-    </form>
-    
-  <hr>
-<% end %>

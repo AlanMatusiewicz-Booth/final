@@ -2,13 +2,13 @@ class SavedRecipesController < ApplicationController
   def index
     matching_saved_recipes = SavedRecipe.where({ :user_id => @current_user.id })
 
-    @list_of_saved_recipes = matching_saved_recipes.order({ :name => :asc })
+    @list_of_saved_recipes = matching_saved_recipes.order({ :created_at => :desc })
 
     matching_recipes = Recipe.where({ :user_id => @current_user.id })
 
     @list_of_recipes = matching_recipes.order({ :name => :asc })
-    
-    matching_recipes = Recipe.where({ :user_id => @current_user.id })
+
+    render({ :template => "saved_recipes/index.html.erb" })
   end
 
   def show
@@ -22,39 +22,36 @@ class SavedRecipesController < ApplicationController
   end
 
   def create
+    if params.has_key?(:query_source_url) == false
+      @source_url = "/saved_recipes"
+    else
+      @source_url = params.fetch("query_source_url")
+    end
+    
     the_saved_recipe = SavedRecipe.new
     the_saved_recipe.user_id = @current_user.id
     the_saved_recipe.recipe_id = params.fetch("query_recipe_id")
-
+    
     if the_saved_recipe.valid?
       the_saved_recipe.save
-      redirect_to("/saved_recipes", { :notice => "Saved recipe created successfully." })
+      redirect_to("#{@source_url}", { :notice => "Recipe saved successfully." })
     else
-      redirect_to("/saved_recipes", { :notice => "Saved recipe failed to create successfully." })
-    end
-  end
-
-  def update
-    the_id = params.fetch("path_id")
-    the_saved_recipe = SavedRecipe.where({ :id => the_id }).at(0)
-
-    the_saved_recipe.user_id = @current_user.id
-    the_saved_recipe.recipe_id = params.fetch("query_recipe_id")
-
-    if the_saved_recipe.valid?
-      the_saved_recipe.save
-      redirect_to("/saved_recipes/#{the_saved_recipe.id}", { :notice => "Saved recipe updated successfully."} )
-    else
-      redirect_to("/saved_recipes/#{the_saved_recipe.id}", { :alert => "Saved recipe failed to update successfully." })
+      redirect_to("#{@source_url}", { :alert => "#{the_saved_recipe.errors.full_messages.to_sentence}" })
     end
   end
 
   def destroy
-    the_id = params.fetch("path_id")
+    if params.has_key?(:query_source_url) == false
+      @source_url = "/saved_recipes"
+    else
+      @source_url = params.fetch("query_source_url")
+    end
+
+    the_id = params.fetch("query_saved_recipe_id")
     the_saved_recipe = SavedRecipe.where({ :id => the_id }).at(0)
 
     the_saved_recipe.destroy
 
-    redirect_to("/saved_recipes", { :notice => "Saved recipe deleted successfully."} )
+    redirect_to("#{@source_url}", { :notice => "Saved recipe deleted successfully."} )
   end
 end

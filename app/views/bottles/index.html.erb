@@ -9,37 +9,48 @@
 <hr>
 
 <div>
-  <div>
+  <div class="mb-3 col-12">
     <h4 class="text-center">
       Add a new bottle
     </h4>
 
     <form action="/insert_bottle" method="post">
-      <div>
-        <label for="alcohol_id_box">
-          Alcohol
-        </label>
-
-        <select id="alcohol_id_box" name="query_alcohol_id">
+      <div class="input-group col-12">
+        <select class="form-select col-9" id="alcohol_id_box" name="query_alcohol_id" aria-label="Alcohol selection">
           <% Alcohol.all.order(:name).each do |a_alcohol|%>
             <option value=<%= a_alcohol.id %>>
               <%= a_alcohol.name.capitalize %>
             </option>
           <% end %>
         </select>
-      
-        <button class="btn btn-outline-secondary btn-sm">
-          Add bottle to bar
-        </button>
+        <button class="btn btn-outline-secondary col-3">Add Bottle</button>
       </div>
     </form>
+    
   </div>
+
+<hr>
+
+  <div class="mb-3 col-12">
+    <h4 class="text-center">
+      Add new alcohol type
+    </h4>
+
+    <form action="/insert_alcohol" method="post">
+      <div class="input-group mb-3 col-12">
+        <input type="text" id="name_box" name="query_name" class="form-control col-9" placeholder="Alcohol type, ie: whiskey, not Jack Daniels" aria-label="Alcohol type, ie: whiskey" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary col-3">Add Alcohol</button>
+      </div>
+    </form>
+
+  </div>
+
 </div>
 
 <hr>
 
 <div>
-  <div class="container d-flex col-12 justify-content-center">
+  <div class="container col-12 justify-content-center">
     <table class="table table-hover table-striped col-12">
       <thead class="thead-dark">    
 
@@ -60,8 +71,8 @@
         </td>
 
         <td class="text-right">
-          <form action="/delete_recipe/<%= a_bottle.id %>">
-            <button class="btn btn-danger btn-sm">
+          <form action="/delete_bottle/<%= a_bottle.id %>">
+            <button class="btn btn-outline-danger btn-sm">
               Remove bottle
             </button>
           </form>

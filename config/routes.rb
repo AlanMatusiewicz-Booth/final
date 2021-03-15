@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   # READ
   # get("/ingredients", { :controller => "ingredients", :action => "index" })
   
-  get("/ingredients/:path_id", { :controller => "ingredients", :action => "show" })
+  # get("/ingredients/:path_id", { :controller => "ingredients", :action => "show" })
   
   # UPDATE
   
@@ -96,6 +96,7 @@ Rails.application.routes.draw do
   
   # DELETE
   get("/delete_saved_recipe/:path_id", { :controller => "saved_recipes", :action => "destroy" })
+  get("/bar/delete_saved_recipe/:path_id", { :controller => "saved_recipes", :action => "destroy" })
 
   #------------------------------
 
