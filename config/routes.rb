@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get("/", { :controller => "application", :action => "index" })
+  get("/", { :controller => "application", :action => "homepage" })
 
   # Routes for the Na ingredient resource:
 
