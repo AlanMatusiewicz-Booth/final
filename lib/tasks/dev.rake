@@ -149,7 +149,7 @@ task({ :sample_data => :environment}) do
       {id: 74, name: "Vampiro", user_id: 2, preparation: "Finely chop onion.\nShake ingredients with ice cubes.\nStrain into a highball glass, filled with ice.\nGarnish with lime wedge and a green or red chili.", iba_status: true, created_at: "2021-03-13 18:10:00", updated_at: "2021-03-13 18:30:01"},
       {id: 75, name: "Kamikaze", user_id: 5, preparation: "Shake and strain into a chilled cocktail glass.", iba_status: true, created_at: "2021-03-13 18:10:00", updated_at: "2021-03-13 18:30:01"},
       {id: 76, name: "White Lady", user_id: 2, preparation: "Shake with ice cubes.\nStrain into large cocktail glass.", iba_status: true, created_at: "2021-03-13 18:10:00", updated_at: "2021-03-13 18:30:01"},
-      {id: 77, name: "Harvey Wallbanger", user_id: 1, preparation: "Build vodka and orange juice into a highball glass filled with ice.\nStir gently and float Galliano on top.\n} Garnish with orance slice and a cherry.", iba_status: true, created_at: "2021-03-13 18:10:00", updated_at: "2021-03-13 18:30:01"}
+      {id: 77, name: "Harvey Wallbanger", user_id: 1, preparation: "Build vodka and orange juice into a highball glass filled with ice.\nStir gently and float Galliano on top.\n Garnish with orance slice and a cherry.", iba_status: true, created_at: "2021-03-13 18:10:00", updated_at: "2021-03-13 18:30:01"}
     ]
     Recipe.insert_all!(recipes)
     puts "There are #{Recipe.count} Recipes in the database"

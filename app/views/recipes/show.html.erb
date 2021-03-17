@@ -1,8 +1,35 @@
 <div>
   <div>
+    <% if @missing_count > 0%>
+    
+      <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        <strong>Oh no!</strong> Your bar is missing <%= @missing_count %> alcoholic 
+          <%if @missing_count == 1 %>
+            ingredient 
+          <% else %>
+            ingredients 
+          <% end %>
+        for this cocktail!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+    <% else %>
+
+      <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <strong>Hooray!</strong> Your bar has all the alcoholic ingredients for this cocktail!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
+    
     <h1 class="text-center">
       <%= @the_recipe.name %>
     </h1>
+
+    <%= @query_missing_count %>
       
     <% if @the_recipe.iba_status == true %>
       <div class="text-center">

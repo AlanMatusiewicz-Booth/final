@@ -17,6 +17,7 @@ class Bottle < ApplicationRecord
 
 
   # Validations
+  validates(:alcohol_id, { :uniqueness => { :scope => ["user_id"], :message => "is already in your bar" } })
 
 
   # Additional Methods

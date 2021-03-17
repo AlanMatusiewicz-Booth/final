@@ -1,22 +1,25 @@
 <div>
-  <div>
-    <h1 class="text-center">
-      My Bottles
-    </h1>
-  </div>
+  <h1 class="text-center">
+    My Bar
+  </h1>
 </div>
 
 <hr>
 
-<div>
-  <div class="mb-3 col-12">
-    <h4 class="text-center">
+<br>
+
+<div class="container justify-content-center">
+  <div class="text-center">
+    <h4>
       Add a new bottle
     </h4>
+  </div>
 
+  <div class="col-11 container justify-content-center">
     <form action="/insert_bottle" method="post">
       <div class="input-group col-12">
         <select class="form-select col-9" id="alcohol_id_box" name="query_alcohol_id" aria-label="Alcohol selection">
+          <option selected>Select an alcohol...</option>
           <% Alcohol.all.order(:name).each do |a_alcohol|%>
             <option value=<%= a_alcohol.id %>>
               <%= a_alcohol.name.capitalize %>
@@ -50,38 +53,38 @@
 <hr>
 
 <div>
-  <div class="container col-12 justify-content-center">
-    <table class="table table-hover table-striped col-12">
-      <thead class="thead-dark">    
 
-        <th class="align-middle">
-          Alcohol
-        </th>
+  <table class="table col-11 container justify-content-center">
+    <thead class="thead-dark">    
 
-        <th>
-        </th>
+      <th class="align-middle">
+        Alcohol
+      </th>
 
-      </tr>
+      <th>
+      </th>
 
-      <% @list_of_bottles.each do |a_bottle| %>
-      <tr>   
+    </tr>
 
-        <td class="align-middle">
-          <%= a_bottle.alcohol.name.capitalize %></a>
-        </td>
+    <% @list_of_bottles.each do |a_bottle| %>
+    <tr>   
 
-        <td class="text-right">
-          <form action="/delete_bottle/<%= a_bottle.id %>">
-            <button class="btn btn-outline-danger btn-sm">
-              Remove bottle
-            </button>
-          </form>
-        </td>
+      <td class="align-middle">
+        <%= a_bottle.alcohol.name.capitalize %></a>
+      </td>
 
-      </tr>
-      <% end %>
-    </table>
-  </div>
+      <td class="text-right">
+        <form action="/delete_bottle/<%= a_bottle.id %>">
+          <button class="btn btn-outline-danger btn-sm">
+            Remove bottle
+          </button>
+        </form>
+      </td>
+
+    </tr>
+    <% end %>
+  </table>
+
 </div>
 
 <hr>

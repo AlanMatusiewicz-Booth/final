@@ -1,5 +1,7 @@
 class BottlesController < ApplicationController
   def index
+    @test_list = @current_user.bar
+    
     matching_bottles = Bottle.where({ :user_id => @current_user.id })
 
     @list_of_bottles = matching_bottles.order({ :name => :asc })

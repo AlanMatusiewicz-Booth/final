@@ -1,11 +1,91 @@
 class RecipesController < ApplicationController
-  def index
-    matching_recipes = Recipe.all
+  before_action(:get_inventory)
+  before_action(:bar_check, { :only => [:index, :random_bar] })
 
-    @list_of_recipes = matching_recipes.order({ :name => :asc })
+
+  
+# ----------------------------------------------------------------------------------------------------------
+
+  def get_inventory
+    @bar = Array.new
+
+    @current_user.bar.each do | a_alcohol |
+      @bar.push( a_alcohol.id )
+    end
+  end
+
+
+  
+# ----------------------------------------------------------------------------------------------------------
+  
+  def bar_check
+    @zero = Array.new
+    @one = Array.new
+    @two = Array.new
+    @three = Array.new
+
+    Recipe.all.each do | a_recipe |
+
+      missing_count = 0
+
+      a_recipe.ingredients.each do | a_ingredient |
+        if @bar.exclude?( a_ingredient.alcohol_id )
+          missing_count = missing_count + 1
+        end
+      end
+
+      if missing_count == 0
+        @zero.push( a_recipe.id )
+      elsif missing_count == 1
+        @one.push( a_recipe.id )
+        @two.push( a_recipe.id )
+        @three.push( a_recipe.id )
+      elsif missing_count == 2
+        @two.push( a_recipe.id )
+        @three.push( a_recipe.id )
+      elsif missing_count == 3
+        @three.push( a_recipe.id )
+      end
+    end
+
+  end
+
+
+
+# ----------------------------------------------------------------------------------------------------------
+
+  def index
+    if params.has_key?(:path_id)
+      @query_missing_count = params.fetch("path_id")
+      
+      if @query_missing_count == "0"
+        @test = "zero"
+        @matching_recipes = Recipe.where({ :id => @zero })
+      elsif @query_missing_count == "1"
+        @matching_recipes = Recipe.where({ :id => @one })
+        @test = "one"
+      elsif @query_missing_count == "2"
+        @matching_recipes = Recipe.where({ :id => @two })
+        @test = "two"
+      elsif @query_missing_count == "3"
+        @matching_recipes = Recipe.where({ :id => @three })
+        @test = "three"
+      else
+        @matching_recipes = Recipe.all
+        @test = "all"
+      end
+    else
+      @matching_recipes = Recipe.all
+    end
+
+    @list_of_recipes = @matching_recipes.order({ :name => :asc })
 
     render({ :template => "recipes/index.html.erb" })
   end
+
+
+  
+# ----------------------------------------------------------------------------------------------------------
 
   def show
     the_id = params.fetch("path_id")
@@ -14,8 +94,19 @@ class RecipesController < ApplicationController
 
     @the_recipe = matching_recipes.at(0)
 
+    @missing_count = 0
+    @the_recipe.ingredients.each do | a_ingredient |
+      if @bar.exclude?( a_ingredient.alcohol_id )
+        @missing_count = @missing_count + 1
+      end
+    end
+
     render({ :template => "recipes/show.html.erb" })
   end
+
+
+  
+# ----------------------------------------------------------------------------------------------------------
 
   def create
     @source_url = params.fetch("query_source_url")
@@ -31,6 +122,10 @@ class RecipesController < ApplicationController
       redirect_to("/recipes", { :notice => "#{the_recipe.errors.full_messages.to_sentence}" })
     end
   end
+
+
+  
+# ----------------------------------------------------------------------------------------------------------
 
   def update
     the_id = params.fetch("path_id")
@@ -54,12 +149,20 @@ class RecipesController < ApplicationController
     end
   end
 
+
+  
+# ----------------------------------------------------------------------------------------------------------
+
   def update_form
     the_id = params.fetch("path_id")
     @the_recipe = Recipe.where({ :id => the_id }).at(0)
     
     render({ :template => "recipes/update_form.html.erb" })
   end
+
+
+  
+# ----------------------------------------------------------------------------------------------------------
 
   def destroy
     the_id = params.fetch("path_id")
@@ -70,12 +173,27 @@ class RecipesController < ApplicationController
     redirect_to("/recipes", { :notice => "Recipe deleted successfully."} )
   end
 
+
+  
+# ----------------------------------------------------------------------------------------------------------
+
   def random
     the_id = Recipe.all.sample.id
-
-    # Plan is for this notice to show only if user doesn't have all ingredients and specify what they need.
-    # redirect_to("/recipes/#{the_id}", { :notice => "Your bar may not have the ingredients needed for this random cocktail recipe." })
+    
     redirect_to("/recipes/#{the_id}")
   end
+
+
+
+# ----------------------------------------------------------------------------------------------------------
+
+  def random_bar
+    the_id = @zero.sample
+
+    redirect_to("/recipes/#{the_id}")
+  end
+
+
+
 
 end

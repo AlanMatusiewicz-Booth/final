@@ -66,8 +66,7 @@ Rails.application.routes.draw do
           
   # READ
   get("/bottles", { :controller => "bottles", :action => "index" })
-  get("/bar/bottles", { :controller => "bottles", :action => "index" })
-  
+   
   # get("/bottles/:path_id", { :controller => "bottles", :action => "show" })
   
   # UPDATE
@@ -86,8 +85,7 @@ Rails.application.routes.draw do
           
   # READ
   get("/saved_recipes", { :controller => "saved_recipes", :action => "index" })
-  get("/bar/saved_recipes", { :controller => "saved_recipes", :action => "index" })
-  
+    
   # get("/saved_recipes/:path_id", { :controller => "saved_recipes", :action => "show" })
   
   # UPDATE
@@ -96,8 +94,7 @@ Rails.application.routes.draw do
   
   # DELETE
   get("/delete_saved_recipe/:path_id", { :controller => "saved_recipes", :action => "destroy" })
-  get("/bar/delete_saved_recipe/:path_id", { :controller => "saved_recipes", :action => "destroy" })
-
+  
   #------------------------------
 
   # Routes for the Recipe resource:
@@ -107,10 +104,13 @@ Rails.application.routes.draw do
          
   # READ
   get("/recipes", { :controller => "recipes", :action => "index" })
-  
+  get("/recipes/c/:path_id", { :controller => "recipes", :action => "index" })
+ 
   get("/recipes/:path_id", { :controller => "recipes", :action => "show" })
 
   get("/random", { :controller => "recipes", :action => "random" })
+  
+  get("/random/bar", { :controller => "recipes", :action => "random_bar" })
   
   # UPDATE
 

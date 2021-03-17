@@ -69,7 +69,7 @@
           <% matching_records = SavedRecipe.where({ :user_id => @current_user.id, :recipe_id => a_recipe.id }) %>
               <% saved_recipe = matching_records.first %>
 
-              <div class="mb-3">
+              <div>
                 <% if saved_recipe != nil %>
                   <form action="/delete_saved_recipe/<%= a_recipe.id %>">
                     <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
