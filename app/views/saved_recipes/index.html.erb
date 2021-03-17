@@ -28,7 +28,7 @@
         <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
         <select class="form-select col-9" id="recipe_id_box" name="query_recipe_id" aria-label="Example select with button addon">
           <option selected>Select recipe...</option>
-          <% Recipe.all.order(:name).each do |a_recipe|%>
+          <% Recipe.where.not( :id => @saved_id_array).order(:name).each do |a_recipe|%>
             <option value=<%= a_recipe.id %>>
               <%= a_recipe.name %> - <%= a_recipe.ingredient_list.to_s.gsub(/[^a-zé0-9\s\,]/i, "").capitalize %>
             </option>
@@ -46,59 +46,58 @@
 <hr>
 
 <div>
-  <div class="container col-12 justify-content-center">
-    <table class="table table-hover table-striped col-12">
-      <thead class="thead-dark">    
+  <table class="table col-11 container justify-content-center">
+    <thead class="thead-dark">    
 
-        <th class="align-middle">
-          Recipe
-        </th>
+      <th class="align-middle text-center" style="width: 8%;">
+        IBA
+      </th>
 
-        <th class="align-middle text-center">
-          IBA Official
-        </th>
+      <th class="align-middle" style="width: 24%;">
+        Recipe
+      </th>
 
-        <th class="align-middle">
-          Ingredients
-        </th>
+      <th class="align-middle">
+        Ingredients
+      </th>
 
-        <th class="align-middle">
-        </th>
+      <th class="align-middle">
+      </th>
 
-      </tr>
+    </tr>
 
-      <% @list_of_saved_recipes.each do |a_saved_recipe| %>
-      <tr>   
+    <% @list_of_saved_recipes.each do |a_saved_recipe| %>
+    <tr>   
 
-        <td class="align-middle">
-          <a href="/recipes/<%= a_saved_recipe.recipe.id %>"><%= a_saved_recipe.recipe.name %></a>
-        </td>
+      <td class="text-center" style="width: 8%;">
+        <% if a_saved_recipe.recipe.iba_status == true %>
+          <i class="fas fa-award h5" style="color: goldenrod;"></i>
+        <% end %>
+      </td>
 
-        <td class="text-center">
-          <% if a_saved_recipe.recipe.iba_status == true %>
-            <i class="fas fa-award h5" style="color: goldenrod;"></i>
-          <% end %>
-        </td>
+      <td class="align-middle" style="width: 24%;">
+        <a href="/recipes/<%= a_saved_recipe.recipe.id %>"><%= a_saved_recipe.recipe.name %></a>
+      </td>
 
-        <td class="align-middle">
-          <%= a_saved_recipe.recipe.ingredient_list.to_s.gsub(/[^a-zé0-9\s\,]/i, "").capitalize %>
-        </td>
+      <td class="align-middle">
+        <%= a_saved_recipe.recipe.ingredient_list.to_s.gsub(/[^a-zé0-9\s\,]/i, "").capitalize %>
+      </td>
 
-        <td class="align-middle text-right">
-          <form action="delete_saved_recipe/<%= a_saved_recipe.id %>">
-            <input type="hidden" name="query_saved_recipe_id" value="<%= a_saved_recipe.id %>">
-            <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
-            <button class="btn btn-outline-danger btn-sm">
-              Remove Save
-            </button>
-          </form>
-        </td>
+      <td class="align-middle text-right">
+        <form action="delete_saved_recipe/<%= a_saved_recipe.id %>">
+          <input type="hidden" name="query_saved_recipe_id" value="<%= a_saved_recipe.id %>">
+          <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
+          <button class="btn btn-outline-danger btn-sm">
+            Unsave
+          </button>
+        </form>
+      </td>
 
-      </tr>
-      <% end %>
-    </table>
-  </div>
+    </tr>
+    <% end %>
+  </table>
 </div>
+
 
 <hr>
 <br>
@@ -130,45 +129,45 @@
 <hr>
 
 <div>
-  <div class="container d-flex col-12 justify-content-center">
-    <table class="table table-hover table-striped col-12">
-      <thead class="thead-dark">    
 
-        <th class="align-middle">
-          Recipe
-        </th>
+  <table class="table col-11 container justify-content-center">
+    <thead class="thead-dark">    
 
-        <th class="align-middle text-center">
-          IBA Official
-        </th>
+      <th class="align-middle text-center" style="width: 8%;">
+        IBA
+      </th>
+      
+      <th class="align-middle" style="width: 24%;">
+        Recipe
+      </th>
 
-        <th class="align-middle">
-          Ingredients
-        </th>
+      <th class="align-middle">
+        Ingredients
+      </th>
 
-      </tr>
+    </tr>
 
-      <% @list_of_recipes.each do |a_recipe| %>
-      <tr>   
+    <% @list_of_recipes.each do |a_recipe| %>
+    <tr>   
+      
+      <td class="align-middle text-center" style="width: 8%;">
+        <% if a_recipe.iba_status == true %>
+          <i class="fas fa-award h5" style="color: goldenrod;"></i>
+        <% end %>
+      </td>
 
-        <td class="align-middle">
-          <a href="/recipes/<%= a_recipe.id %>"><%= a_recipe.name %></a>
-        </td>
+      <td class="align-middle" style="width: 24%;">
+        <a href="/recipes/<%= a_recipe.id %>"><%= a_recipe.name %></a>
+      </td>
 
-        <td class="align-middle text-center">
-          <% if a_recipe.iba_status == true %>
-            <i class="fas fa-award h5" style="color: goldenrod;"></i>
-          <% end %>
-        </td>
+      <td class="align-middle">
+        <%= a_recipe.ingredient_list.to_s.gsub(/[^a-zé0-9\s\,]/i, "").capitalize %>
+      </td>
 
-        <td>
-          <%= a_recipe.ingredient_list.to_s.gsub(/[^a-zé0-9\s\,]/i, "").capitalize %>
-        </td>
+    </tr>
+    <% end %>
+  </table>
 
-      </tr>
-      <% end %>
-    </table>
-  </div>
 </div>
 
 <hr>

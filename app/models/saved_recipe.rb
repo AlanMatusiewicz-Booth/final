@@ -17,7 +17,7 @@ class SavedRecipe < ApplicationRecord
 
   
   # Validations
-
+  validates(:recipe_id, { :uniqueness => { :scope => ["user_id"], :message => "already saved" } })
 
   # Additional Methods
 end

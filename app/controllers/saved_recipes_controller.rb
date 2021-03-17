@@ -3,6 +3,12 @@ class SavedRecipesController < ApplicationController
     matching_saved_recipes = SavedRecipe.where({ :user_id => @current_user.id })
 
     @list_of_saved_recipes = matching_saved_recipes.order({ :created_at => :desc })
+    # @list_of_saved_recipes = matching_saved_recipes.order({ :created_at => :desc })
+
+    @saved_id_array = Array.new
+    @list_of_saved_recipes.each do |a_saved_recipe|
+      @saved_id_array.push(a_saved_recipe.recipe_id)
+    end
 
     matching_recipes = Recipe.where({ :user_id => @current_user.id })
 

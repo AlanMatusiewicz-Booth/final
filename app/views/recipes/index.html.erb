@@ -26,16 +26,16 @@
 <hr>
 
 <div>
-  <div class="container d-flex col-12 justify-content-center">
-    <table class="table table-striped">
-      <thead class="thead-dark">    
 
-        <th class="align-middle">
-          Recipe
+    <table class="table col-11 container justify-content-center">
+      <thead class="thead-dark">   
+
+        <th class="align-middle text-center" style="width: 8%;">
+          IBA
         </th>
 
-        <th class="align-middle text-center">
-          IBA Official
+        <th class="align-middle" style="width: 24%;">
+          Recipe
         </th>
 
         <th class="align-middle">
@@ -48,16 +48,16 @@
       </tr>
 
       <% @list_of_recipes.each do |a_recipe| %>
-      <tr>   
+      <tr>  
 
-        <td class="align-middle">
-          <a href="/recipes/<%= a_recipe.id %>"><%= a_recipe.name %></a>
-        </td>
-
-        <td class="align-middle text-center">
+        <td class="align-middle text-center" style="width: 8%;">
           <% if a_recipe.iba_status == true %>
             <i class="fas fa-award h5" style="color: goldenrod;"></i>
           <% end %>
+        </td>
+
+        <td class="align-middle" style="width: 24%;">
+          <a href="/recipes/<%= a_recipe.id %>"><%= a_recipe.name %></a>
         </td>
 
         <td class="align-middle">
@@ -75,7 +75,7 @@
                     <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
                     <input type="hidden" name="query_saved_recipe_id" value="<%= saved_recipe.id %>">
                     <button class="btn btn-outline-danger btn-sm">
-                      Remove Save
+                      Unsave
                     </button>
                   </form>
                 <% else %>
@@ -94,7 +94,7 @@
       </tr>
       <% end %>
     </table>
-  </div>
+
 </div>
 
 <hr>

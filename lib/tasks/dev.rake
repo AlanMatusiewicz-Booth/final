@@ -1,5 +1,6 @@
 desc "Hydrate the database with some sample data to look at so that developing is easier"
 task({ :sample_data => :environment}) do
+
   if ActiveRecord::Base.connection.table_exists?("users")
     User.delete_all
 
@@ -28,40 +29,40 @@ task({ :sample_data => :environment}) do
   if ActiveRecord::Base.connection.table_exists?("alcohols")
     Alcohol.delete_all
     alcohols = [
-      {id: 1, description: , name:"ginger beer", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 2, description: , name:"aperol", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 3, description: , name:"champagne", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 4, description: , name:"dry white wine", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 5, description: , name:"prosecco", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 6, description: , name:"lillet blonde", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 7, description: , name:"vermouth", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 8, description: , name:"coffee liqueur", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 9, description: , name:"créme liqueur", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 11, description: , name:"raspberry liqueur", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 12, description: , name:"red port", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 13, description: , name:"campari", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 14, description: , name:"disaronno", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 15, description: , name:"cherry liqueur", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 16, description: , name:"galliano", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 17, description: , name:"absinthe", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 18, description: , name:"apricot brandy", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 19, description: , name:"blackberry liqueur", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 20, description: , name:"cachaca", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 21, description: , name:"calvados", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 22, description: , name:"cognac", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 23, description: , name:"dark rum", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 24, description: , name:"dom bénédictine", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 25, description: , name:"drambuie", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 26, description: , name:"gin", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 27, description: , name:"kirsch", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 28, description: , name:"orange bitters", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 29, description: , name:"peach schnapps", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 30, description: , name:"pisco", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 31, description: , name:"tequila", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 32, description: , name:"triple sec", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 33, description: , name:"vodka", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 34, description: , name:"whiskey", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
-      {id: 35, description: , name:"white rum", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"}
+      {id: 1, description: "", name:"ginger beer", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 2, description: "", name:"aperol", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 3, description: "", name:"champagne", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 4, description: "", name:"dry white wine", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 5, description: "", name:"prosecco", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 6, description: "", name:"lillet blonde", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 7, description: "", name:"vermouth", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 8, description: "", name:"coffee liqueur", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 9, description: "", name:"créme liqueur", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 11, description: "", name:"raspberry liqueur", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 12, description: "", name:"red port", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 13, description: "", name:"campari", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 14, description: "", name:"disaronno", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 15, description: "", name:"cherry liqueur", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 16, description: "", name:"galliano", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 17, description: "", name:"absinthe", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 18, description: "", name:"apricot brandy", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 19, description: "", name:"blackberry liqueur", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 20, description: "", name:"cachaca", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 21, description: "", name:"calvados", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 22, description: "", name:"cognac", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 23, description: "", name:"dark rum", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 24, description: "", name:"dom bénédictine", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 25, description: "", name:"drambuie", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 26, description: "", name:"gin", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 27, description: "", name:"kirsch", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 28, description: "", name:"orange bitters", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 29, description: "", name:"peach schnapps", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 30, description: "", name:"pisco", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 31, description: "", name:"tequila", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 32, description: "", name:"triple sec", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 33, description: "", name:"vodka", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 34, description: "", name:"whiskey", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 35, description: "", name:"white rum", created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"}
     ]
     Alcohol.insert_all!(alcohols)
     puts "There are #{Alcohol.count} Alcohols in the database"
@@ -454,4 +455,90 @@ task({ :sample_data => :environment}) do
   else
     puts "There is no Non-Alcoholic Ingredients table"
   end
+
+  if ActiveRecord::Base.connection.table_exists?("bottles")
+    Bottle.delete_all
+    bottles = [
+      {id: 1, user_id: 1, alcohol_id: 1, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 2, user_id: 1, alcohol_id: 12, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 3, user_id: 1, alcohol_id: 5, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 4, user_id: 1, alcohol_id: 20, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 5, user_id: 1, alcohol_id: 34, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 6, user_id: 1, alcohol_id: 16, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 7, user_id: 1, alcohol_id: 2, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 8, user_id: 1, alcohol_id: 9, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 9, user_id: 2, alcohol_id: 32, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 11, user_id: 2, alcohol_id: 4, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 12, user_id: 2, alcohol_id: 6, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 13, user_id: 2, alcohol_id: 4, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 14, user_id: 2, alcohol_id: 3, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 15, user_id: 2, alcohol_id: 1, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 16, user_id: 2, alcohol_id: 20, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 17, user_id: 2, alcohol_id: 15, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 18, user_id: 3, alcohol_id: 15, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 19, user_id: 3, alcohol_id: 23, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 20, user_id: 3, alcohol_id: 17, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 21, user_id: 3, alcohol_id: 1, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 22, user_id: 3, alcohol_id: 28, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 23, user_id: 4, alcohol_id: 21, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 24, user_id: 4, alcohol_id: 22, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 25, user_id: 4, alcohol_id: 14, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 26, user_id: 4, alcohol_id: 3, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 27, user_id: 4, alcohol_id: 5, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 28, user_id: 4, alcohol_id: 7, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 29, user_id: 4, alcohol_id: 17, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 30, user_id: 5, alcohol_id: 19, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 31, user_id: 5, alcohol_id: 3, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 32, user_id: 5, alcohol_id: 9, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 33, user_id: 5, alcohol_id: 8, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 34, user_id: 5, alcohol_id: 14, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"},
+      {id: 35, user_id: 5, alcohol_id: 12, created_at: "2021-03-13 16:18:00", updated_at: "2021-03-13 16:18:01"}
+    ]
+    Bottle.insert_all!(bottles)
+    puts "There are #{Bottle.count} Bottles in the database"
+  else
+    puts "There is no Bottles table"
+  end
+
+  if ActiveRecord::Base.connection.table_exists?("saved_recipes")
+    SavedRecipe.delete_all
+    saved_recipes = [
+      {id: 1, user_id: 1, recipe_id: 23, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 2, user_id: 2, recipe_id: 66, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 3, user_id: 1, recipe_id: 62, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 4, user_id: 1, recipe_id: 20, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 5, user_id: 4, recipe_id: 32, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 6, user_id: 1, recipe_id: 14, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 7, user_id: 3, recipe_id: 39, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 8, user_id: 1, recipe_id: 55, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 9, user_id: 5, recipe_id: 14, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 10, user_id: 3, recipe_id: 5, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 11, user_id: 4, recipe_id: 45, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 12, user_id: 3, recipe_id: 57, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 13, user_id: 4, recipe_id: 19, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 14, user_id: 1, recipe_id: 60, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 15, user_id: 4, recipe_id: 52, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 16, user_id: 4, recipe_id: 49, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 17, user_id: 4, recipe_id: 30, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 18, user_id: 4, recipe_id: 18, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 19, user_id: 3, recipe_id: 18, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 20, user_id: 2, recipe_id: 45, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 21, user_id: 3, recipe_id: 20, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 22, user_id: 3, recipe_id: 65, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 23, user_id: 2, recipe_id: 2, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 24, user_id: 2, recipe_id: 42, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 25, user_id: 5, recipe_id: 32, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 26, user_id: 2, recipe_id: 24, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 27, user_id: 2, recipe_id: 67, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 28, user_id: 3, recipe_id: 26, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 29, user_id: 5, recipe_id: 53, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 30, user_id: 1, recipe_id: 41, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"},
+      {id: 31, user_id: 1, recipe_id: 52, created_at: "2021-03-13 18:41:00", updated_at: "2021-03-13 18:51:01"}
+    ]
+    SavedRecipe.insert_all!(saved_recipes)
+    puts "There are #{SavedRecipe.count} Saved Recipes in the database"
+  else
+    puts "There is no Saved Recipes table"
+  end
+
 end

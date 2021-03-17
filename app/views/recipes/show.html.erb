@@ -24,7 +24,7 @@
           <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
           <input type="hidden" name="query_saved_recipe_id" value="<%= saved_recipe.id %>">
           <button class="btn btn-outline-danger btn-sm">
-            Remove Save
+            Unsave
           </button>
         </form>
       <% else %>
@@ -73,13 +73,13 @@
           <ul>
             <% @the_recipe.ingredients.order({ :measure_ml => :desc }).each do |a_ingredient| %>
               <li>
-                <%= a_ingredient.summary %>
+                <%= a_ingredient.summary.capitalize %>
               </li>
             <% end %>
 
             <% @the_recipe.na_ingredients.order({ :name => :desc }).each do |a_na_ingredient| %>
               <li>
-                <%= a_na_ingredient.summary %>
+                <%= a_na_ingredient.summary.capitalize %>
               </li>
             <% end %>
           </ul>

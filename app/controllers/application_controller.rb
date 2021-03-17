@@ -13,8 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   def get_username
-    name_array = @current_user.email.split("@")
-    @username = name_array[0].capitalize
+    if @current_user != nil
+      name_array = @current_user.email.split("@")
+      @username = name_array[0].capitalize
+    end
   end
 
   def load_current_user
