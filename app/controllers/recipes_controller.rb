@@ -100,6 +100,18 @@ class RecipesController < ApplicationController
 
     end
 
+    if params.has_key?("query_name")
+      @query_name = params.fetch("query_name").downcase
+    
+
+      @matching_recipes = @matching_recipes.where("name like ?", "%#{@query_name}%")
+
+      if @matching_recipes.length == 0
+        @no_results = true
+      end
+
+    end
+
     if @empty_bar == "true"
       redirect_to("/bottles", { :alert => "You need to add bottles before you can view your bar menu!"})
 

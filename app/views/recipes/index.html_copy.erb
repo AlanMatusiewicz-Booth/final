@@ -17,29 +17,6 @@
 
   <hr>
 
-  <h4 class="text-center">
-    Search by cocktail name
-  </h4>
-
-  <br>
-
-  <div class="col-9 container justify-content-center">
-    <form action="<%= @path %>">
-      <div class="input-group mb-3 col-12">
-        <input type="text" id="name_box" name="query_name" class="form-control col-9" placeholder="Cocktail name, ie: Manhattan" aria-label="cocktail_name" aria-describedby="button-addon2" 
-
-        <% if @query_name != nil %>
-          value="<%= @query_name %>"
-        <% end %>
-
-        >
-        <button class="btn btn-outline-secondary col-3">Search</button>
-      </div>
-    </form>
-  </div>
-
-  <hr>
-
   <div>
     <table class="table col-11 container justify-content-center">
       <thead class="thead-dark">   
@@ -111,12 +88,6 @@
       <% end %>
     </table>
   </div>
-
-  <% if @no_results == true %>
-    <p class="text-center">
-      No results where cocktail name includes "<%= @query_name %>"!
-    </p>
-  <% end %>
 
 </div>
 
