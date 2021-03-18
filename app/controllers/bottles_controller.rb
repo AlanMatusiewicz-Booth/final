@@ -10,7 +10,7 @@ class BottlesController < ApplicationController
     
     matching_bottles = Bottle.where({ :user_id => @current_user.id })
 
-    @list_of_bottles = matching_bottles.order({ :name => :asc })
+    @list_of_bottles = matching_bottles.order({ :created_at => :desc })
 
     render({ :template => "bottles/index.html.erb" })
 
