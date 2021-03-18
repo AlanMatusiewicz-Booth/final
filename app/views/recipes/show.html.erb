@@ -30,7 +30,7 @@
     
   <% if @the_recipe.iba_status == true %>
     <div class="text-center">
-      <i class="fas fa-award h1" style="color: goldenrod;"></i>
+      <i class="fas fa-award h1" style="color: goldenrod;" data-toggle="tooltip" data-placement="right" title="IBA Official Cocktail"></i>
       <h5>
         IBA Official Cocktail
       </h5>
@@ -103,7 +103,7 @@
             <li>
               <%= a_ingredient.summary.capitalize %>
               <% if @bar.exclude?(a_ingredient.alcohol_id) %>
-                <i class="fas fa-exclamation-circle" style="color: gold;"></i>
+                <i class="fas fa-exclamation-circle" style="color: gold;" data-toggle="tooltip" data-placement="right" title="You don't have this ingredient in your bar!"></i>
               <% end %>
             </li>
           <% end %>

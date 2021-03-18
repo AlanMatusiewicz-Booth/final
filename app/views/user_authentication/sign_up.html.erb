@@ -1,37 +1,42 @@
 <h4 class="text-center">Sign Up</h4>
 
 <hr>
+<br>
 
-<form action="/insert_user" method="post">
+<div class="col-6 container justify-content-center">
+  <form action="/insert_user" method="post">
 
-  <div>
-    <label for="email_box">Email</label>
-    <input id="email_box" name="query_email" placeholder="Choose a email..." type="text">
-  </div>
-            
-  <div>
-    <label for="password_box">Password</label>
-    <input id="password_box" name="query_password" placeholder="Choose a password..." type="password">
-  </div>
+    <div class="mb-3">
+      <label for="email_box">Email</label>
+      <input id="email_box" name="query_email" class="form-control" placeholder="Choose a email..." type="text" >
+    </div>
+              
+    <div class="mb-3">
+      <label for="password_box">Password</label>
+      <input id="password_box" name="query_password" class="form-control" placeholder="Choose a password..." type="password">
+    </div>
 
-  <div>
-    <label for="password_confirmation_box">Password Confirmation</label>
-    <input id="password_confirmation_box" name="query_password_confirmation" placeholder="Confirm your password..." type="password">
-  </div>
+    <div class="mb-3">
+      <label for="password_confirmation_box">Password Confirmation</label>
+      <input id="password_confirmation_box" name="query_password_confirmation" class="form-control" placeholder="Confirm your password..." type="password">
+    </div>
 
-  <div>
-    <input type="checkbox" id="ofMLDA" name="ofMLDA" value="ofMLDA" required>
-    <label for="age_confirmation_box">I confirm that I am of legal drinking age</label>
-  </div>
+    <div class="mb-3 form-check text-center">
+      <input type="checkbox" class="form-check-input" id="ofMLDA" name="ofMLDA" value="ofMLDA" required>
+      <label for="age_confirmation_box">I confirm that I am of legal drinking age</label>
+    </div>
 
-  <button class="btn btn-outline-secondary btn-sm">
-    Sign up
-  </button>
-</form>
+    <button class="btn btn-outline-success btn-block">
+      Sign up
+    </button>
+  
+  </form>
+</div>
 
+<br>
 <hr>
 
-<p>
+<p class="text-center">
   Or, <a href="/user_sign_in">Sign in</a> instead.
 </p>
 

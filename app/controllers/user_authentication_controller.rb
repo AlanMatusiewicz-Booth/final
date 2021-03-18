@@ -8,7 +8,13 @@ class UserAuthenticationController < ApplicationController
 
   def sign_in_form
 
-    render({ :template => "user_authentication/sign_in.html.erb" })
+    if @current_user != nil
+      redirect_to("/edit_user_profile", { :notice => "You are already logged in as #{@current_user.email}." })
+
+    else
+      render({ :template => "user_authentication/sign_in.html.erb" })
+
+    end
 
   end
 
@@ -59,7 +65,13 @@ class UserAuthenticationController < ApplicationController
 
   def sign_up_form
 
-    render({ :template => "user_authentication/sign_up.html.erb" })
+    if @current_user != nil
+      redirect_to("/edit_user_profile", { :notice => "You are already logged in as #{@current_user.email}." })
+
+    else
+      render({ :template => "user_authentication/sign_up.html.erb" })
+
+    end
 
   end
 
@@ -133,5 +145,5 @@ class UserAuthenticationController < ApplicationController
     redirect_to("/", { :notice => "User account cancelled" })
     
   end
- 
+
 end

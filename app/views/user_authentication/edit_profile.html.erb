@@ -1,32 +1,82 @@
-<div >
-  <h4 class="text-center">
-    Edit User Account
-  </h4>
+<h4 class="text-center">
+  Edit User Account
+</h4>
 
-  <hr>
+<hr>
+<br>
 
-  <div>
-    <form action="/modify_user" method="post">
-      <div>
-        <label for="email_box">Email</label>
-        <input id="email_box" name="query_email" value="<%= @current_user.email %>">
-      </div>
+<div class="col-6 container justify-content-center">
+  <form action="/modify_user" method="post">
 
-      <div>
-        <label for="password_box">Password</label>
-        <input id="password_box" name="query_password" placeholder="Choose a password..." type="password">
-      </div>
-    
-      <div>
-        <label for="password_confirmation_box">Password Confirmation</label>
-        <input id="password_confirmation_box" name="query_password_confirmation" placeholder="Confirm your password..." type="password">
-      </div>
+    <div class="mb-3">
+      <label for="email_box">Email</label>
+      <input id="email_box" name="query_email" class="form-control" value="<%= @current_user.email %>">
+    </div>
 
-      <button class="btn btn-outline-secondary btn-sm">
-        Update account
-      </button>
-    </form>
-  </div>
+    <div class="mb-3">
+      <label for="password_box">Password</label>
+      <input id="password_box" name="query_password" class="form-control" placeholder="Choose a new password..." type="password">
+    </div>
+  
+    <div class="mb-3">
+      <label for="password_confirmation_box">Password Confirmation</label>
+      <input id="password_confirmation_box" name="query_password_confirmation" class="form-control" placeholder="Confirm your new password..." type="password">
+    </div>
+
+    <br>
+
+    <button class="btn btn-outline-success btn-block">
+      Update account
+    </button>
+
+  </form>
 </div>
 
+<br>
+<hr>
+
+<br>
+
+<h4 class="text-center">
+  Delete User Account
+</h4>
+
+<br>
+<hr>
+
+<div class="col-6 container justify-content-center">
+  <form action="/cancel_user_account">
+
+      <!-- Button HTML (to Trigger Modal) -->
+      <a href="#myModal" role="button" class="btn btn-outline-danger btn-block" data-toggle="modal">Delete account</a>
+
+      <!-- Modal HTML -->
+      <div id="myModal" class="modal fade" tabindex="-1">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title">Confirmation</h5>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body text-center">
+                      <br>
+                      <p><strong>Warning: Your are about to delete your account!</strong>
+                      <p>This action is permanent and cannot be undone.</p>
+                      <p>Any recipes you have created will not be deleted.</p>
+                      <br>
+                      <p>Click <strong>Delete Account</strong> to proceed.</p>
+                  </div>
+                  <div class="modal-footer">
+                      <button class="btn btn-secondary btn-block" data-dismiss="modal">Cancel</button>
+                      <br>
+                      <button class="btn btn-danger btn-block">Delete Account</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </form>
+</div>
+
+<br>
 <hr>
