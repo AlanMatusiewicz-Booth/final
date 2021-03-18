@@ -2,9 +2,17 @@ class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
   skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
 
+
+  
+# ----------------------------------------------------------------------------------------------------------
+
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
   end
+
+
+  
+# ----------------------------------------------------------------------------------------------------------
 
   def create_cookie
     user = User.where({ :email => params.fetch("query_email") }).first
@@ -27,15 +35,27 @@ class UserAuthenticationController < ApplicationController
     end
   end
 
+
+  
+# ----------------------------------------------------------------------------------------------------------
+
   def destroy_cookies
     reset_session
 
     redirect_to("/", { :notice => "Signed out successfully." })
   end
 
+
+  
+# ----------------------------------------------------------------------------------------------------------
+
   def sign_up_form
     render({ :template => "user_authentication/sign_up.html.erb" })
   end
+
+
+  
+# ----------------------------------------------------------------------------------------------------------
 
   def create
     @user = User.new
@@ -53,10 +73,18 @@ class UserAuthenticationController < ApplicationController
       redirect_to("/user_sign_up", { :alert => "User account failed to create successfully."})
     end
   end
+
+
+  
+# ----------------------------------------------------------------------------------------------------------
     
   def edit_profile_form
     render({ :template => "user_authentication/edit_profile.html.erb" })
   end
+
+
+  
+# ----------------------------------------------------------------------------------------------------------
 
   def update
     @user = @current_user
@@ -72,6 +100,10 @@ class UserAuthenticationController < ApplicationController
       render({ :template => "user_authentication/edit_profile_with_errors.html.erb" })
     end
   end
+
+
+  
+# ----------------------------------------------------------------------------------------------------------
 
   def destroy
     @current_user.destroy
