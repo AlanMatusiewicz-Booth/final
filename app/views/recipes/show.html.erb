@@ -1,6 +1,17 @@
 <!-- Missing Ingredient Alert Banner -->
 
-  <% if @missing_count > 0%>
+  <% if @orphans.include?(@the_recipe.id) %>
+
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+      No alcoholic ingredients have been added to this recipe!
+
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+    </div>
+
+  <% elsif @missing_count > 0%>
 
     <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
       Your bar is only missing <%= @missing_count %> alcoholic 

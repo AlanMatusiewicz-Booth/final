@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   before_action(:get_inventory)
-  before_action(:bar_check, { :only => [:index, :random_bar, :show] })
+  before_action(:bar_check, { :only => [:index, :random_bar, :show, :update_form] })
 
 
   
@@ -24,41 +24,51 @@ class RecipesController < ApplicationController
   
   def bar_check
 
+    @orphans = Array.new
     @zero = Array.new
     @one = Array.new
     @two = Array.new
     @three = Array.new
-
+    
     Recipe.all.each do | a_recipe |
 
-      missing_count = 0
+      ing_count = a_recipe.ingredients.count
 
-      a_recipe.ingredients.each do | a_ingredient |
+      if ing_count == 0
+        @orphans.push(a_recipe.id)
 
-        if @bar.exclude?( a_ingredient.alcohol_id )
-          missing_count = missing_count + 1
+      else
+    
+        missing_count = 0
+
+        a_recipe.ingredients.each do | a_ingredient |
+
+          if @bar.exclude?( a_ingredient.alcohol_id )
+            missing_count = missing_count + 1
+
+          end
 
         end
 
-      end
+        if missing_count == 0
+          @zero.push( a_recipe.id )
+          @one.push( a_recipe.id )
+          @two.push( a_recipe.id )
+          @three.push( a_recipe.id )
 
-      if missing_count == 0
-        @zero.push( a_recipe.id )
-        @one.push( a_recipe.id )
-        @two.push( a_recipe.id )
-        @three.push( a_recipe.id )
+        elsif missing_count == 1
+          @one.push( a_recipe.id )
+          @two.push( a_recipe.id )
+          @three.push( a_recipe.id )
 
-      elsif missing_count == 1
-        @one.push( a_recipe.id )
-        @two.push( a_recipe.id )
-        @three.push( a_recipe.id )
+        elsif missing_count == 2
+          @two.push( a_recipe.id )
+          @three.push( a_recipe.id )
 
-      elsif missing_count == 2
-        @two.push( a_recipe.id )
-        @three.push( a_recipe.id )
+        elsif missing_count == 3
+          @three.push( a_recipe.id )
 
-      elsif missing_count == 3
-        @three.push( a_recipe.id )
+        end
 
       end
 
@@ -74,11 +84,11 @@ class RecipesController < ApplicationController
 
     if params.has_key?("query_name")
       @query_name = params.fetch("query_name")
-      @matching_recipes_arel = Recipe.arel_table
+      @matching_recipes_arel = Recipe.where.not({ :id => @orphans }).arel_table
       @matching_recipes = Recipe.where(@matching_recipes_arel[:name].matches("%#{@query_name}%"))
    
     else
-      @matching_recipes = Recipe.all
+      @matching_recipes = Recipe.where.not({ :id => @orphans })
 
     end
 
@@ -132,12 +142,17 @@ class RecipesController < ApplicationController
 
     @the_recipe = matching_recipes.at(0)
 
-    @missing_count = 0
+    if @orphans.include?( the_id )
+      @orphan_recipe = true
 
-    @the_recipe.ingredients.each do | a_ingredient |
+    else
+      @missing_count = 0
+      @the_recipe.ingredients.each do | a_ingredient |
 
-      if @bar.exclude?( a_ingredient.alcohol_id )
-        @missing_count = @missing_count + 1
+        if @bar.exclude?( a_ingredient.alcohol_id )
+          @missing_count = @missing_count + 1
+
+        end
 
       end
 
@@ -275,7 +290,7 @@ class RecipesController < ApplicationController
 
   def random
 
-    the_id = Recipe.all.sample.id
+    the_id = Recipe.where.not({ :id => @orphans }).sample.id
     
     redirect_to("/recipes/#{the_id}")
 

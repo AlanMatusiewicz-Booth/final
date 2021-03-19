@@ -1,4 +1,21 @@
-<div>
+<!-- Alert if no alcoholic ingredients for recipe -->
+
+  <% if @orphans.include?(@the_recipe.id) %>
+
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+      No alcoholic ingredients have been added to this recipe!
+
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+    </div>
+
+  <% end %>
+
+
+<!-- Name and IBA Status -->
+
   <h1 class="text-center">
     <%= @the_recipe.name %>
   </h1>
@@ -14,262 +31,260 @@
 
   <hr>
 
-  <!-- Recipe Buttons -->
+<!-- Recipe Buttons -->
 
-    <!-- Back button -->
-      <div class="col-6 container justify-content-center">
-        <form action="/recipes/<%= @the_recipe.id %>">
+  <!-- Back button -->
+    <div class="col-6 container justify-content-center">
+      <form action="/recipes/<%= @the_recipe.id %>">
+        <div class="input-group text-center mb-3">
+
+          <button class="btn btn-outline-secondary btn-sm btn-block">
+            Go back
+          </button>
+
+        </div>
+      </form>
+    </div>
+
+  <!-- Delete Recipe Button -->
+    <div class="col-6 container justify-content-center">
+      <% if @current_user.id == @the_recipe.user.id %>
+        <form action="/delete_recipe/<%= @the_recipe.id %>">
           <div class="input-group text-center mb-3">
+
+            <button class="btn btn-outline-danger btn-sm btn-block">
+              Delete recipe
+            </button>
+            
+          </div>
+        </form>
+      <% end %>      
+    </div>
+  
+  <hr>
+
+<% if @current_user.id == @the_recipe.user.id %>
+
+  <!-- Recipe Details -->
+
+    <h4 class="text-center">
+        Edit Details
+    </h4>
+
+    <div class="col-6 container justify-content-center">
+      <form action="/modify_recipe/<%= @the_recipe.id %>" method="post">
+            
+        <div class="mb-3">
+          <label for="name_box">Cocktail Name</label>
+          <input type="text" id="name_box" name="query_name" class="form-control" placeholder="Current name: <%= @the_recipe.name %>" aria-label="Cocktail name" value="<%= @the_recipe.name %>">
+        </div>
+
+        <div class="mb-3 form-check text-center">
+          <input type="checkbox" class="form-check-input" id="iba_status_box" name="query_iba_status" value="1" <%= @iba_status %>>
+          <label class="form-check-label" for="iba_status">Check box if IBA Official Recipe</label>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="preparation_box">Preparation</label>
+          <textarea class="form-control" id="preparation_box" name="query_preparation" rows="6" placeholder="Preparation: <%= @the_recipe.preparation %>" aria-label="Preparation"><%= @the_recipe.preparation %></textarea>
+        </div>
+            
+        <div class="input-group text-center mb-3">
+          <button class="btn btn-outline-success btn-block">
+            Update Recipe Details
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <hr>  
+
+
+  <!-- Edit Ingredients-->
+
+    <h4 class="text-center">
+      Edit Ingredients
+    </h4>
+
+    <br>
+
+    <!-- Alcoholic Ingredients -->
+
+      <% if @ingredient_count > 0 %>
+        <h5 class="text-center">
+          Edit alcoholic ingredients
+        </h5>
+      <% end %>
+
+      <div class="container col-6">
+        <% @the_recipe.ingredients.order({ :measure_ml => :desc }).each do |a_ingredient| %>
+          <div class="mb-3">
+            <form action="/modify_ingredient/<%= a_ingredient.id %>" method="post">
+              <div class="input-group">
+
+                <input type="hidden" name="query_recipe_id" value="<%= @the_recipe.id %>">
+                <input type="number" step="any" min="0" class="form-control col-3" placeholder="Measure" aria-label="ingredient_measure" value="<%= a_ingredient.measure %>" name="query_measure">
+                <span class="input-group-text col-3">oz</span>
+                
+                <select class="form-select col-6" id="alcohol_id_box" name="query_alcohol_id" aria-label="Alcohol selection">
+                  <% Alcohol.all.order(:name).each do |a_alcohol|%>
+                    <% if a_ingredient.alcohol_id == a_alcohol.id %>
+                      <option value=<%= a_alcohol.id %> selected>
+                        <%= a_alcohol.name.capitalize %>
+                      </option>
+                    <% else %>
+                      <option value=<%= a_alcohol.id %>>
+                        <%= a_alcohol.name.capitalize %>
+                      </option>
+                    <% end %>
+                  <% end %>
+                </select>
+
+                <button class="btn btn-outline-success btn-sm btn-block">
+                  Update
+                </button>    
+
+              </div>
+            </form>
+                        
+            <form action="/delete_ingredient/<%= a_ingredient.id %>">
+
+                <input type="hidden" name="query_recipe_id" value="<%= @the_recipe.id %>">
+
+                <button class="btn btn-outline-danger btn-sm btn-block">
+                  Delete
+                </button>
+              
+            </form>
+          </div>
+
+          <br>          
+
+        <% end %>
+      </div>
+
+      <h5 class="text-center">
+        Add alcoholic ingredients
+      </h5>
+
+      <div class="mb-3 container col-6">
+        <form action="/insert_ingredient" method="post">
+          <div class="input-group">
+
+            <input type="hidden" name="query_recipe_id" value="<%= @the_recipe.id %>">
+            <input type="number" step="any" min="0" class="form-control col-3" placeholder="1.5" aria-label="ingredient_measure" name="query_measure">
+            <span class="input-group-text col-3">oz</span>
+            
+            <select class="form-select col-6" id="alcohol_id_box" name="query_alcohol_id" aria-label="Alcohol selection">
+              <option selected>Select alcohol...</option>
+              <% Alcohol.all.order(:name).each do |a_alcohol|%>
+                <option value=<%= a_alcohol.id %>>
+                  <%= a_alcohol.name.capitalize %>
+                </option>
+              <% end %>
+            </select>
+
+            <button class="btn btn-outline-success btn-sm btn-block">
+              Add
+            </button>    
+
+          </div>
+        </form>
+      </div>
+  
+      <br>
+      
+      <p class="text-center">
+        Is the alcohol type you need not listed?
+      </p>
+
+      <div class="container col-6">
+        <form action="/create_alcohol_form">
+          <div class="input-group">
+
+            <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
 
             <button class="btn btn-outline-secondary btn-sm btn-block">
-              Go back
+              Add New Alcohol
             </button>
 
           </div>
         </form>
       </div>
-
-    <!-- Delete Recipe Button -->
-      <div class="col-6 container justify-content-center">
-        <% if @current_user.id == @the_recipe.user.id %>
-          <form action="/delete_recipe/<%= @the_recipe.id %>">
-            <div class="input-group text-center mb-3">
-
-              <button class="btn btn-outline-danger btn-sm btn-block">
-                Delete recipe
-              </button>
-              
-            </div>
-          </form>
-        <% end %>      
-      </div>
-    
-    <hr>
-
-  <% if @current_user.id == @the_recipe.user.id %>
-  
-    <!-- Recipe Details -->
-
-      <h4 class="text-center">
-          Edit Details
-      </h4>
-
-      <div class="col-6 container justify-content-center">
-        <form action="/modify_recipe/<%= @the_recipe.id %>" method="post">
-              
-          <div class="mb-3">
-            <label for="name_box">Cocktail Name</label>
-            <input type="text" id="name_box" name="query_name" class="form-control" placeholder="Current name: <%= @the_recipe.name %>" aria-label="Cocktail name" value="<%= @the_recipe.name %>">
-          </div>
-
-          <div class="mb-3 form-check text-center">
-            <input type="checkbox" class="form-check-input" id="iba_status_box" name="query_iba_status" value="1" <%= @iba_status %>>
-            <label class="form-check-label" for="iba_status">Check box if IBA Official Recipe</label>
-          </div>
-
-          <div class="form-group mb-3">
-            <label for="preparation_box">Preparation</label>
-            <textarea class="form-control" id="preparation_box" name="query_preparation" rows="6" placeholder="Preparation: <%= @the_recipe.preparation %>" aria-label="Preparation"><%= @the_recipe.preparation %></textarea>
-          </div>
-              
-          <div class="input-group text-center mb-3">
-            <button class="btn btn-outline-success btn-block">
-              Update Recipe Details
-            </button>
-          </div>
-
-        </form>
-      </div>
-
-      <hr>  
-
-
-    <!-- Edit Ingredients-->
-
-      <h4 class="text-center">
-        Edit Ingredients
-      </h4>
-
-      <br>
-
-      <!-- Alcoholic Ingredients -->
-
-        <% if @ingredient_count > 0 %>
-          <h5 class="text-center">
-            Edit alcoholic ingredients
-          </h5>
-        <% end %>
-
-        <div class="container col-6">
-          <% @the_recipe.ingredients.order({ :measure_ml => :desc }).each do |a_ingredient| %>
-            <div class="mb-3">
-              <form action="/modify_ingredient/<%= a_ingredient.id %>" method="post">
-                <div class="input-group">
-
-                  <input type="hidden" name="query_recipe_id" value="<%= @the_recipe.id %>">
-                  <input type="number" step="any" min="0" class="form-control col-3" placeholder="Measure" aria-label="ingredient_measure" value="<%= a_ingredient.measure %>" name="query_measure">
-                  <span class="input-group-text col-3">oz</span>
-                  
-                  <select class="form-select col-6" id="alcohol_id_box" name="query_alcohol_id" aria-label="Alcohol selection">
-                    <% Alcohol.all.order(:name).each do |a_alcohol|%>
-                      <% if a_ingredient.alcohol_id == a_alcohol.id %>
-                        <option value=<%= a_alcohol.id %> selected>
-                          <%= a_alcohol.name.capitalize %>
-                        </option>
-                      <% else %>
-                        <option value=<%= a_alcohol.id %>>
-                          <%= a_alcohol.name.capitalize %>
-                        </option>
-                      <% end %>
-                    <% end %>
-                  </select>
-
-                  <button class="btn btn-outline-success btn-sm btn-block">
-                    Update
-                  </button>    
-
-                </div>
-              </form>
-                          
-              <form action="/delete_ingredient/<%= a_ingredient.id %>">
-
-                  <input type="hidden" name="query_recipe_id" value="<%= @the_recipe.id %>">
-
-                  <button class="btn btn-outline-danger btn-sm btn-block">
-                    Delete
-                  </button>
-                
-              </form>
-            </div>
-
-            <br>          
-
-          <% end %>
-        </div>
-
-        <h5 class="text-center">
-          Add alcoholic ingredients
-        </h5>
-
-        <div class="mb-3 container col-6">
-          <form action="/insert_ingredient" method="post">
-            <div class="input-group">
-
-              <input type="hidden" name="query_recipe_id" value="<%= @the_recipe.id %>">
-              <input type="number" step="any" min="0" class="form-control col-3" placeholder="1.5" aria-label="ingredient_measure" name="query_measure">
-              <span class="input-group-text col-3">oz</span>
-              
-              <select class="form-select col-6" id="alcohol_id_box" name="query_alcohol_id" aria-label="Alcohol selection">
-                <option selected>Select alcohol...</option>
-                <% Alcohol.all.order(:name).each do |a_alcohol|%>
-                  <option value=<%= a_alcohol.id %>>
-                    <%= a_alcohol.name.capitalize %>
-                  </option>
-                <% end %>
-              </select>
-
-              <button class="btn btn-outline-success btn-sm btn-block">
-                Add
-              </button>    
-
-            </div>
-          </form>
-        </div>
-    
-        <br>
         
-        <p class="text-center">
-          Is the alcohol type you need not listed?
-        </p>
+      <br>
+    
+      <hr>
 
-        <div class="container col-6">
-          <form action="/create_alcohol_form">
-            <div class="input-group">
 
-              <input type="hidden" id="source_url" name="query_source_url" value="<%= @path %>">
+    <!-- Non-Alcoholic Ingredients -->  
 
-              <button class="btn btn-outline-secondary btn-sm btn-block">
-                Add New Alcohol
-              </button>
+      <% if @na_ingredient_count > 0 %>
+        <h5 class="text-center">
+          Edit non-alcoholic ingredients
+        </h5>
+      <% end %>
 
-            </div>
-          </form>
-        </div>
+      <div class="container col-6">
+        <% @the_recipe.na_ingredients.order({ :name => :desc }).each do |a_na_ingredient| %>
+          <div class="mb-3">
+            
+            <form action="/modify_na_ingredient/<%= a_na_ingredient.id %>" method="post">
+              <div class="input-group">
+
+                <input name="query_recipe_id" type="hidden" value="<%= @the_recipe.id %>">
+                <input type="text" class="form-control col-3" placeholder="Measure" aria-label="na_ingredient_measure" value="<%= a_na_ingredient.measure %>" name="query_measure">
+                <input type="text" class="form-control col-3" placeholder="Unit" aria-label="na_ingredient_unit" value="<%= a_na_ingredient.unit %>" name="query_unit">
+                <input type="text" class="form-control col-6" placeholder="Ingredient Name" aria-label="na_ingredient_name" value="<%= a_na_ingredient.name %>" name="query_name">
+
+                <button class="btn btn-outline-success btn-sm btn-block">
+                  Update
+                </button>    
+
+              </div>
+            </form>
+
+            <form action="/delete_na_ingredient/<%= a_na_ingredient.id %>">
+            
+                <input id="recipe_id" name="query_recipe_id" type="hidden" value="<%= @the_recipe.id %>">
+                
+                <button class="btn btn-outline-danger btn-sm btn-block">
+                  Delete
+                </button>
           
-        <br>
-      
-        <hr>
+            </form>
+            
 
+          </div>
 
-      <!-- Non-Alcoholic Ingredients -->  
+          <br>
 
-        <% if @na_ingredient_count > 0 %>
-          <h5 class="text-center">
-            Edit non-alcoholic ingredients
-          </h5>
         <% end %>
 
-        <div class="container col-6">
-          <% @the_recipe.na_ingredients.order({ :name => :desc }).each do |a_na_ingredient| %>
-            <div class="mb-3">
-              
-              <form action="/modify_na_ingredient/<%= a_na_ingredient.id %>" method="post">
-                <div class="input-group">
+      </div>
 
-                  <input name="query_recipe_id" type="hidden" value="<%= @the_recipe.id %>">
-                  <input type="text" class="form-control col-3" placeholder="Measure" aria-label="na_ingredient_measure" value="<%= a_na_ingredient.measure %>" name="query_measure">
-                  <input type="text" class="form-control col-3" placeholder="Unit" aria-label="na_ingredient_unit" value="<%= a_na_ingredient.unit %>" name="query_unit">
-                  <input type="text" class="form-control col-6" placeholder="Ingredient Name" aria-label="na_ingredient_name" value="<%= a_na_ingredient.name %>" name="query_name">
+      <h5 class="text-center">
+        Add non-alcoholic ingredients
+      </h5>
 
-                  <button class="btn btn-outline-success btn-sm btn-block">
-                    Update
-                  </button>    
+      <div class="mb-3 container col-6">
+        <form action="/insert_na_ingredient" method="post">
+          <div class="input-group">
 
-                </div>
-              </form>
+            <input type="hidden" name="query_recipe_id" value="<%= @the_recipe.id %>">
+            <input type="text" class="form-control col-3" placeholder="1.5 or A few" aria-label="na_ingredient_measure" name="query_measure">
+            <input type="text" class="form-control col-3" placeholder="oz or drops" aria-label="na_ingredient_unit" name="query_unit">
+            <input type="text" class="form-control col-6" placeholder="Ingredient Name" aria-label="na_ingredient_name" name="query_name">
 
-              <form action="/delete_na_ingredient/<%= a_na_ingredient.id %>">
-              
-                  <input id="recipe_id" name="query_recipe_id" type="hidden" value="<%= @the_recipe.id %>">
-                  
-                  <button class="btn btn-outline-danger btn-sm btn-block">
-                    Delete
-                  </button>
-            
-              </form>
-              
+            <button class="btn btn-outline-success btn-sm btn-block">
+              Add
+            </button>    
 
-            </div>
+          </div>
+        </form>
+      </div>
 
-            <br>
-
-          <% end %>
-
-        </div>
-
-        <h5 class="text-center">
-          Add non-alcoholic ingredients
-        </h5>
-
-        <div class="mb-3 container col-6">
-          <form action="/insert_na_ingredient" method="post">
-            <div class="input-group">
-
-              <input type="hidden" name="query_recipe_id" value="<%= @the_recipe.id %>">
-              <input type="text" class="form-control col-3" placeholder="1.5 or A few" aria-label="na_ingredient_measure" name="query_measure">
-              <input type="text" class="form-control col-3" placeholder="oz or drops" aria-label="na_ingredient_unit" name="query_unit">
-              <input type="text" class="form-control col-6" placeholder="Ingredient Name" aria-label="na_ingredient_name" name="query_name">
-
-              <button class="btn btn-outline-success btn-sm btn-block">
-                Add
-              </button>    
-
-            </div>
-          </form>
-        </div>
-
-  <% end %>
-
-</div>
+<% end %>
 
 <hr>
