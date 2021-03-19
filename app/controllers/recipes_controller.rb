@@ -101,9 +101,12 @@ class RecipesController < ApplicationController
     end
 
     if params.has_key?("query_name")
-      @query_name = params.fetch("query_name").downcase
-    
-      @matching_recipes = @matching_recipes.where("name like ?", "%#{@query_name}%")
+      @query_name = params.fetch("query_name")
+
+      @matching_recipes_arel = @matching_recipes.arel_table
+
+      @matching_recipes = Recipe.where(@matching_recipes_arel[:name].matches("%#{@query_name}%"))
+      # @matching_recipes = @matching_recipes_arel.where("name like ?", "%#{@query_name}%")
 
       if @matching_recipes.length == 0
         @no_results = true
