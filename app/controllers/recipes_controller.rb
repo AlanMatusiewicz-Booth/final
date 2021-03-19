@@ -103,7 +103,6 @@ class RecipesController < ApplicationController
     if params.has_key?("query_name")
       @query_name = params.fetch("query_name").downcase
     
-
       @matching_recipes = @matching_recipes.where("name like ?", "%#{@query_name}%")
 
       if @matching_recipes.length == 0
