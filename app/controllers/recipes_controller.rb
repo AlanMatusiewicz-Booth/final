@@ -78,12 +78,7 @@ class RecipesController < ApplicationController
       @matching_recipes_arel = Recipe.arel_table
 
       @matching_recipes = Recipe.where(@matching_recipes_arel[:name].matches("%#{@query_name}%"))
-      # @matching_recipes = @matching_recipes_arel.where("name like ?", "%#{@query_name}%")
-
-      if @matching_recipes.length == 0
-        @no_results = true
-      end
-
+   
     else
       @matching_recipes = Recipe.all
 
@@ -107,24 +102,20 @@ class RecipesController < ApplicationController
       elsif @query_missing_count == "3"
         @matching_recipes = @matching_recipes.where({ :id => @three })
 
-      # else
-      #   @matching_recipes = Recipe.all
-
       end
-
-    # else
-    #   @matching_recipes = Recipe.all
 
     end
 
-    
+    if @matching_recipes.length == 0
+      @no_results = true
+        
+    end
 
     if @empty_bar == "true"
       redirect_to("/bottles", { :alert => "You need to add bottles before you can view your bar menu!"})
 
     else
       @list_of_recipes = @matching_recipes.order({ :name => :asc })
-
       render({ :template => "recipes/index.html.erb" })
 
     end
